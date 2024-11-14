@@ -2,3 +2,6 @@
 
 Google Docs for draft
 https://docs.google.com/document/d/1veUIqQZqdv1PB4XkKDZFAyq8xOYwKgjGmIi7_PB1RL8/edit?tab=t.0
+
+Google Docs for background about Existing Solutions and DDPG
+https://docs.google.com/document/d/15O4ZUE9xb-fuWQdkYZBRAkPyGZx91ECtcR8L5h9Yt6A/edit?usp=sharing
