@@ -70,24 +70,55 @@
 % should be no longer than seven pages including figures but excluding references and appendices.
 
 \section{Problem Definition (1 Page)}
-A clear, precise and concise description of your chosen problem, including the states, actions, transition dynamics, and the reward function. You will lose marks for an unclear, incorrect, or incomplete problem definition. You should also discuss
-the difficulty of your chosen problem and justify why it cannot be solved effectively using tabular reinforcement learning methods.
+% A clear, precise and concise description of your chosen problem, including the states, actions, transition dynamics, and the reward function. You will lose marks for an unclear, incorrect, or incomplete problem definition. You should also discuss
+% the difficulty of your chosen problem and justify why it cannot be solved effectively using tabular reinforcement learning methods.
 
-\subsection{States}
-
-\subsection{Actions}
-
-\subsection{Transition dynamics}
-
-\subsection{Reward function}
+Problem Definition
+% States
+% Actions
+% Transition dynamics
+% Reward function
 
 \subsection{Difficulty and challenges}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Background (< 1 Page)}
-A discussion of reinforcement learning methods that may be effective at solving your chosen problem, their strengths and weaknesses for your chosen problem, and any existing results in the scientific literature (or publicly available online) on your chosen problem or similar problems.
+% A discussion of reinforcement learning methods that may be effective at solving your chosen problem, their strengths and weaknesses for your chosen problem, and any existing results in the scientific literature (or publicly available online) on your chosen problem or similar problems.
 
+\subsection{Existing Literature and Results}
+Several reinforcement learning (RL) solutions have been implemented for highway driving tasks. In general, they can be divided into two main classifications: policy-based methods, which optimize the reward via gradient ascent \citep{sutton_policy_1999}, and value-based methods, which select the next action based on the cumulative benefit of each action. %might need one more citation here
+
+\subsubsection{Policy-Based Methods}
+Policy-based methods, particularly those utilizing Proximal Policy Optimization (PPO), have emerged as a dominant solution due to their effectiveness in handling a wide range of challenging tasks and their simplicity in implementation and tuning \citep{schulman_proximal_2017}. 
+
+A key advantage of PPO-based methods is their ability to integrate high-level decision making. For example, \citep{forneris_implementing_2023} used a customized reward function to penalize risky actions and generate different driving styles, including behaviors such as “keep lane,” “overtake,” and “move to the rightmost lane.” 
+
+To simplify decision-making and make solutions more interpretable, these solutions often adopt a hierarchical architecture that separates the Decision Maker (DM) and the Behavior Executor (BE) \citep{pighetti_high-level_2022}, \citep{forneris_implementing_2023}, \citep{capello_investigating_2023}.
+The Decision Maker focuses on selecting high-level strategic actions, such as “keep lane” or “overtake,” while the Behavior Executor translates these decisions into low-level actions controls. Hence, simplifies decision making and allows modularity.
+
+However, while effective, these PPO-based solutions can be unnecessarily complex for simpler highway environments with discrete action spaces, such as the one in our chosen problem. Their performance often heavily relies on the definition of policies, which may limit adaptability. For example, the stabilizing decisions in \citep{pighetti_high-level_2022} may restrict the agent's ability to respond dynamically to changing traffic conditions. Similarly, fixed driving styles (e.g., “aggressive” or “comfort”) implemented in \citep{forneris_implementing_2023}, while realistic, may not align with our goal of developing an adaptive agent.
+
+% Therefore we started from Monte Carlo and Value Iteration to find how agent perform with relatively simpler RL methods (?
+
+% Could add one more paragraph mentioning SAC, same as DDPG, they are both actor-critic deep RL. Different from PPO which may lack of adaptive, actor-critic deep RL encourage the agent to take diverse actions. (then some how we say therefore we try DDPG with continuous actions space to see if an adaptive agent perform better...?
+
+%--------------------------------------------------------------------------------------------------------------
+\subsubsection{Value-based methods}
+
+Value-based methods, specifically Deep Q-Networks (DQN), are the primary solution for highway driving tasks. DQN estimates the action-value function (Q-values) to determine the optimal action for the agent at each state, making it particularly well-suited for environments with discrete action spaces.
+
+A significant strength of DQN lies in its ability to handle complex decision-making through the use of attention mechanisms. For instance, \citep{leurent_social_2019} and \citep{bellotti_designing_2023} introduced techniques that prioritize vehicles most likely to influence the agent’s decisions.  
+
+At the same time, DQN maintains a high degree of interpretability, which is crucial for understanding and analyzing the agent's behavior. \citep{bellotti_explaining_2023} employed SHapley Additive exPlanations (SHAP) to quantify the importance of environmental factors (such as vehicle speed, position, and distance) that influence specific decisions. Furthermore, \citep{bellotti_designing_2023} provided multiple visualization views for SHAP values. These tools enable a detailed analysis of the agent’s decision-making process across varying traffic conditions and timeframes.
+
+While existing DQN provides a solid foundation, there remains significant room for improvement, particularly in enhancing learning efficiency and performance stability. 
+
+% In "method" make connection to this part, explaining why DQN and rainbow DQN are implemented.
+
+% To address these challenges, we aim to implement Rainbow DQN, which integrates several advanced techniques, such as prioritized replay, dueling networks, and distributional RL, to build upon the strengths of DQN. This will enable the agent to achieve better performance and faster convergence, particularly in scenarios with dynamic and dense highway environments.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Method (2 Page)}
 A description of the method(s) used to solve your chosen problem, an explanation of how these methods work (in your own words), and an explanation of why you chose these specific methods.
 
@@ -113,6 +144,7 @@ time.
 \section{Personal Experience (0.5 Page)}
 A discussion of your personal experience with the project, such as difficulties or pleasant surprises you encountered while completing it.
 
+\newpage
 \bibliographystyle{unsrtnat} 
 \bibliography{references} 
 
