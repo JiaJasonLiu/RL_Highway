@@ -1,0 +1,4 @@
+highway-env
+git+https://github.com/DLR-RM/stable-baselines3
+gymnasium
+matplotlib

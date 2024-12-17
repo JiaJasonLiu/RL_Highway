@@ -15,3 +15,11 @@ Go to overleaf home page -> `New Project` -> `Import from GitHub` -> Select `CM3
 
 
 ## [Highway Env Documentation](https://highway-env.farama.org/)
+
+### Install Package
+Running the following command to install all the needed packages
+> pip install -r Code/requirements.txt
+
+### Kinematic
+For the kinematic the shape is of (5,5)
+to illustrate how far the vehicles are from the agent
