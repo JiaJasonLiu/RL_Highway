@@ -20,6 +20,12 @@ Go to overleaf home page -> `New Project` -> `Import from GitHub` -> Select `CM3
 Running the following command to install all the needed packages
 > pip install -r Code/requirements.txt
 
+
+
 ### Kinematic
 For the kinematic the shape is of (5,5)
 to illustrate how far the vehicles are from the agent
+
+# Testing
+
+- The environment used is 'highway-fast-v0' to increase the step() process 
