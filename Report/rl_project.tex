@@ -10,7 +10,6 @@
 % to avoid loading the natbib package, add option nonatbib:
 \usepackage[nonatbib]{rl_project}
 % \usepackage[numbers]{natbib}
-
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
 \usepackage{hyperref}       % hyperlinks
@@ -70,14 +69,23 @@
 % should be no longer than seven pages including figures but excluding references and appendices.
 
 \section{Problem Definition (1 Page)}
-% A clear, precise and concise description of your chosen problem, including the states, actions, transition dynamics, and the reward function. You will lose marks for an unclear, incorrect, or incomplete problem definition. You should also discuss
-% the difficulty of your chosen problem and justify why it cannot be solved effectively using tabular reinforcement learning methods.
+A clear, precise and concise description of your chosen problem, including the states, actions, transition dynamics, and the reward function. You will lose marks for an unclear, incorrect, or incomplete problem definition. You should also discuss
+the difficulty of your chosen problem and justify why it cannot be solved effectively using tabular reinforcement learning methods.
 
-Problem Definition
-% States
-% Actions
-% Transition dynamics
-% Reward function
+
+The Problem Definition we are evaluating is of a highway, where are car is driving and has the goal of driving as fast as possible for a set amount of time (10 seconds for now) without crashing to other cars. This is a continuous problem because the car positions on the highway will be random and will follow some rules of the highway, such as giving way. So, it will require non-tabular reinforcement learning methods to efficiently learn from the most optimal method to traverse this highway environment.
+
+\subsection{States}
+The states will be different combinations of the 4 lanes of the highway and the random number of cars per lane. Not including the agent car, the amount of cars per lane should be at most 2.
+
+\subsection{Actions}
+The actions for any car on the highway environment is to stay in the same lane (idle), move left or right. Furthermore, continuous actions can be applied using kinematics where the speed of going left and right and the distance will also be taken into consideration when training the agent using non-tabular methods.
+
+\subsection{Transition dynamics}
+The transition dynamics of the agent will be the probabilities of going to each of the lanes next to the agent, as well as staying in the same lane. Furthermore, their is also the probability of the agent to crash for each lane the agent is on.
+
+\subsection{Reward function}
+As the goal of the agent is to be as fast as possible, the reward function will be negative rewards when the car crashes. However, the negative rewards need to be balanced so the agent isn't scared of going too fast because it is afraid of crashing. Moreover, the agent will be intrinsically motivated to get ahead as possible in the time it is given.
 
 \subsection{Difficulty and challenges}
 
@@ -126,6 +134,54 @@ Students should demonstrate a good understanding of their chosen method(s) and g
 
 Students may show evidence of creativity in their algorithmic approach and analysis. Students should demonstrate a deep understanding of their chosen method(s), as well as possible alternative approaches. (70\%)
 
+
+\subsection{Deep Q-Learning Network (DQN)}
+
+DQN used to solve your problem and how they work, and why I chose you it.
+
+Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices. 
+This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
+
+show evidence of creativity in their algorithmic approach and analysis.
+Demonstrate deep understanding of DQN and possible alternative approaches. 
+
+
+DQN is a value based deep reinforcement learning algorithm that combines Q-Learning with deep neural networks to solve our environment as the state space contains too many features that make it hard to handle using a tabular method.
+Therefore a neural network generates an output of the estimated Q-values of all possible actions given the state.
+For the chosen problem, there are two types of states that exist are Kinematics and Grey Scale image.
+
+Kinematics refers to an array of nearby vehicles and their features. Some features are the \(x, y\) position of either the agent vehicle or other vehicles offset with the agent vehicle, \(x_{velocity}, y_{velocity}\) of the vehicles.
+% info can be found: https://highway-env.farama.org/observations/#kinematics
+A Multilayer perceptron (MLP) neural network will be used to take in this state and get the Q-values of the available actions.
+A MLP can learn the nonlinear relationships between data as it uses multiple layers of neurons with non-linear activation functions (RelU).
+Then using the Q-Values of the network we get the action with the highest Q-Value.
+However, as the output is vehicle order dependent, it might not be able to generalize the network towards vehicles in different orders.
+
+This is the reason for Grayscale Images, where we process the scenario of the environment with the road and the vehicles.
+This provides a more realistic and accurate representations of the state.
+Therefore, a Convolutional Neural Network (CNN) is used to process the grayscale image of the environment instead of getting the features of nearby vehicles.
+Moreover, the CNN can also take channels of the image normally represented as \(r,g,b\), however as we are using grayscale we can use a set number of previous frames as the channels for a broader representation of the state.
+Nonetheless, this will be computationally heavier as it will take more dimensions and more data than an array.
+
+To train these model, we would need to do this...
+
+
+Furthermore, to improve the outputs of these neural networks gradient 
+
+Experience Replay:
+
+Bellman equation 
+
+Target Network:
+
+Epsilon-Greedy Policy:
+
+
+
+\subsection{Extension: Rainbow DQN}
+This should contain 
+
+
 \section{Results (1 Page)}
 A presentation of your results, showing how quickly and how well your agent(s) learn (i.e. improve their policies). Include informative baselines for comparison (e.g. the best possible performance, the performance of an average human, or the performance of an agent that selects actions randomly).
 
@@ -145,7 +201,7 @@ time.
 A discussion of your personal experience with the project, such as difficulties or pleasant surprises you encountered while completing it.
 
 \newpage
-\bibliographystyle{unsrtnat} 
+\bibliographystyle{unsrt} 
 \bibliography{references} 
 
 \normalsize
