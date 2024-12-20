@@ -1,0 +1,1 @@
+"{'policy': 'CnnPolicy', 'episode_num': 500, 'discount': 0.2, 'batch_size': 32, 'n_steps': 1, 'device': device(type='mps'), 'memory_capacity': 5000, 'use_metrics': True, 'save_model': False}"
