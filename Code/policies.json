@@ -1,0 +1,286 @@
+{
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 1. , 1. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0.5]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(0), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 1,
+        "reward": 3.942305414099417
+    },
+    "(array([[[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0.5, 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(2), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 6.958588707647596
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0.5, 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(0), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 1,
+        "reward": 6.127156063121723
+    },
+    "(array([[[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(1), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 6.627527238738582
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0.5],\n        [0. , 0. , 0.5, 1. , 1. ],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(3), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 1,
+        "reward": 3.673681249627191
+    },
+    "(array([[[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [1., 1., 1., 1., 1.]],\n\n       [[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [1., 1., 1., 1., 1.]],\n\n       [[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [1., 1., 1., 1., 1.]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(0), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 7.058326780605873
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 1. , 1. , 0.5]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(2), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 2.9359966629987917
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0.5],\n        [0. , 0. , 1. , 1. , 0.5],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(3), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 5.434344421688439
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0.5, 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(0), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 1,
+        "reward": 6.328730409235759
+    },
+    "(array([[[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0.5]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(1), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 5.218904930640134
+    },
+    "(array([[[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 1. , 1. , 0.5]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(2), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 6.345920447472971
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0.5, 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(0), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 1,
+        "reward": 6.216486918694041
+    },
+    "(array([[[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(0), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 6.277691357654409
+    },
+    "(array([[[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 1. , 1. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(4), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 3,
+        "reward": 1.8383246456332878
+    },
+    "(array([[[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0.5, 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(2), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 5.937213886024757
+    },
+    "(array([[[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(4), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 7.239498667050134
+    },
+    "(array([[[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [1., 1., 1., 1., 1.]],\n\n       [[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [1., 1., 1., 1., 1.]],\n\n       [[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [1., 1., 1., 1., 1.]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(3), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 1.1046544459820515
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0.5, 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(2), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 1,
+        "reward": 6.658746238092107
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 1. , 1. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(4), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 2.2854551318998975
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0.5, 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(3), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 3.4762334331060187
+    },
+    "(array([[[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0.5, 1. ],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(0), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 1.7832781305508112
+    },
+    "(array([[[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0.5, 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(4), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 3,
+        "reward": 6.240792712577351
+    },
+    "(array([[[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(3), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 1,
+        "reward": 7.478626170465592
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 1. , 1. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(4), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 4.816475488000605
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(4), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 3,
+        "reward": 4.143985392940451
+    },
+    "(array([[[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(2), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 6.494158165532552
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0.5, 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(1), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 1.8710273840369862
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0.5, 1. ],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(2), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 3,
+        "reward": 3.7049630670597504
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 1. , 1. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(1), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 3,
+        "reward": 7.081469371229038
+    },
+    "(array([[[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 1. , 1. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(1), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 7.9227944877105765
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0.5, 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(4), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 4,
+        "reward": 3.1814456666610376
+    },
+    "(array([[[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0.5, 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(1), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 3,
+        "reward": 6.835049217480757
+    },
+    "(array([[[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 1., 1.]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(3), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 5.693328381660798
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0.5, 1. , 1. ],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(4), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 4,
+        "reward": 5.76393833992626
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0.5, 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(3), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 5.726739458834522
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0.5, 1. ],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(0), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 4.094629035144018
+    },
+    "(array([[[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[1., 1., 1., 1., 1.],\n        [0., 0., 0., 1., 1.],\n        [0., 0., 0., 0., 0.]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(1), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 4.814723473791333
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0.5, 1. , 1. ],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(1), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 6.804744067772796
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0.5, 1. , 1. ],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(2), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 1,
+        "reward": 4.663390278845826
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 1. , 1. , 0.5],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(1), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 4,
+        "reward": 3.8116063385557015
+    },
+    "(array([[[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 1. , 1. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(3), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 1,
+        "reward": 6.037303356604681
+    },
+    "(array([[[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[0., 0., 0., 0., 0.],\n        [0., 0., 0., 1., 1.],\n        [0., 0., 0., 0., 0.]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(3), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 8.35604669578364
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0.5, 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(4), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 2.7144140822781835
+    },
+    "(array([[[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 1., 1.]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(1), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 4.157958096808378
+    },
+    "(array([[[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [1., 1., 1., 1., 1.]],\n\n       [[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [1., 1., 1., 1., 1.]],\n\n       [[0., 0., 0., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [1., 1., 1., 1., 1.]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(3), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 1,
+        "reward": 8.42337358719532
+    },
+    "(array([[[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [1., 1., 1., 1., 1.]],\n\n       [[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [1., 1., 1., 1., 1.]],\n\n       [[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [1., 1., 1., 1., 1.]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(1), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 1,
+        "reward": 4.873065983375502
+    },
+    "(array([[[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[0., 0., 0., 0., 0.],\n        [0., 0., 0., 1., 1.],\n        [0., 0., 0., 0., 0.]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(2), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 2.59583727009537
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 1. , 1. , 0.5],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(0), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 6.7983757948224985
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0.5, 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(3), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 1.7747729522770173
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0.5],\n        [0. , 0. , 0. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(2), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 4,
+        "reward": 3.5627474039015197
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0.5]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0.5, 1. , 1. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(4), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 3.568633923492872
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0.5, 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(2), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 3,
+        "reward": 4.053425988604586
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0.5, 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(3), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 2.538920154780392
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 1. , 1. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(0), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 1,
+        "reward": 2.7483332753497463
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0.5, 1. , 1. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(1), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 1,
+        "reward": 4.6222575661734275
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0.5, 1. , 1. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(4), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 2.1063327675259194
+    },
+    "(array([[[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0.5, 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0.5]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(2), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 1.7341890013838466
+    },
+    "(array([[[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[1. , 1. , 1. , 1. , 1. ],\n        [0. , 0.5, 1. , 1. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(4), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 3,
+        "reward": 3.546517936990184
+    },
+    "(array([[[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[1., 1., 1., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.]],\n\n       [[1., 1., 1., 1., 1.],\n        [0., 0., 0., 1., 1.],\n        [0., 0., 0., 0., 0.]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(4), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 5.953435763984214
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 1. , 1. , 0.5]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(0), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 4.403930337474272
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0.5, 1. , 1. , 0.5],\n        [0. , 0. , 0. , 0. , 0.5]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(0), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 6.905056168991369
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 1. , 1. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(0), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 3,
+        "reward": 1.0726111873190063
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0.5, 1. , 1. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(0), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 4,
+        "reward": 4.248978087083146
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 1. , 1. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(4), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 2,
+        "reward": 5.252208472282666
+    },
+    "(array([[[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [1., 1., 1., 1., 1.]],\n\n       [[0., 0., 0., 0., 0.],\n        [0., 0., 0., 0., 0.],\n        [1., 1., 1., 1., 1.]],\n\n       [[0., 0., 0., 1., 1.],\n        [0., 0., 0., 0., 0.],\n        [1., 1., 1., 1., 1.]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(4), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 3,
+        "reward": 7.422417147582458
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0.5, 1. ],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(4), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 5.46687786669848
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 1. , 1. , 0.5],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(3), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 4,
+        "reward": 1.8196834019204389
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0.5, 1. , 1. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(1), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 1,
+        "reward": 2.977583266337949
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 1. , 1. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0.5]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(1), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 3.5021094275731732
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ]],\n\n       [[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 1. , 1. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(2), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 0.5, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 3,
+        "reward": 3.9164983882823465
+    },
+    "(array([[[0. , 0. , 0. , 0. , 0. ],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 0. , 0. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]],\n\n       [[0. , 0. , 1. , 1. , 0.5],\n        [0. , 0. , 0. , 0. , 0. ],\n        [1. , 1. , 1. , 1. , 1. ]]], dtype=float32), {'speed': 25, 'crashed': False, 'action': np.int64(2), 'rewards': {'collision_reward': 0.0, 'right_lane_reward': 1.0, 'high_speed_reward': np.float64(0.5), 'on_road_reward': 1.0}})": {
+        "action": 0,
+        "reward": 2.4667444444444446
+    }
+}
