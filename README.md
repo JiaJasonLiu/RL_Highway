@@ -15,3 +15,6 @@ Go to overleaf home page -> `New Project` -> `Import from GitHub` -> Select `CM3
 
 
 ## [Highway Env Documentation](https://highway-env.farama.org/)
+
+## NoisyNet + CNN + Dueling DQN implimentation example
+https://github.com/jackyoung96/RainbowDQN_highway/blob/master/Rainbow/model.py
