@@ -21,7 +21,6 @@ Running the following command to install all the needed packages
 > pip install -r Code/requirements.txt
 
 
-
 ### Kinematic
 For the kinematic the shape is of (5,5)
 to illustrate how far the vehicles are from the agent
@@ -29,3 +28,7 @@ to illustrate how far the vehicles are from the agent
 # Testing
 
 - The environment used is 'highway-fast-v0' to increase the step() process 
+
+## Metrics and Saving and Loading Model
+They are now saved using %Y%m%d%H%M without any spaces between
+So, 20241228135206 -> 2024/12/28 13:52:06
