@@ -5,3 +5,4 @@
 /Code/Agents/DQN/training_results
 /Code/Agents/DQN/highway_dqn
 /Code/Agents/ValueIteration/policies.json
+/code/agents/human/training_results
