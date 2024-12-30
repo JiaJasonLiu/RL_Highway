@@ -1,6 +1,7 @@
 
-Code/HighwayEnv/
+/Code/HighwayEnv/
 /Code/Agents/DQN/hyperparameters
 /Code/Agents/DQN/CnnPolicy_save_models
 /Code/Agents/DQN/training_results
 /Code/Agents/DQN/highway_dqn
+/Code/Agents/ValueIteration/policies.json
