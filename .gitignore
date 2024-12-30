@@ -6,3 +6,4 @@
 /Code/Agents/DQN/highway_dqn
 /Code/Agents/ValueIteration/policies.json
 /code/agents/human/training_results
+/Code/Agents/ValueIteration/finite_mdp/__pycache__
