@@ -10,7 +10,6 @@
 % to avoid loading the natbib package, add option nonatbib:
 \usepackage[nonatbib]{rl_project}
 % \usepackage[numbers]{natbib}
-
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
 \usepackage{hyperref}       % hyperlinks
@@ -70,14 +69,23 @@
 % should be no longer than seven pages including figures but excluding references and appendices.
 
 \section{Problem Definition (1 Page)}
-% A clear, precise and concise description of your chosen problem, including the states, actions, transition dynamics, and the reward function. You will lose marks for an unclear, incorrect, or incomplete problem definition. You should also discuss
-% the difficulty of your chosen problem and justify why it cannot be solved effectively using tabular reinforcement learning methods.
+A clear, precise and concise description of your chosen problem, including the states, actions, transition dynamics, and the reward function. You will lose marks for an unclear, incorrect, or incomplete problem definition. You should also discuss
+the difficulty of your chosen problem and justify why it cannot be solved effectively using tabular reinforcement learning methods.
 
-Problem Definition
-% States
-% Actions
-% Transition dynamics
-% Reward function
+
+The Problem Definition we are evaluating is of a highway, where are car is driving and has the goal of driving as fast as possible for a set amount of time (10 seconds for now) without crashing to other cars. This is a continuous problem because the car positions on the highway will be random and will follow some rules of the highway, such as giving way. So, it will require non-tabular reinforcement learning methods to efficiently learn from the most optimal method to traverse this highway environment.
+
+\subsection{States}
+The states will be different combinations of the 4 lanes of the highway and the random number of cars per lane. Not including the agent car, the amount of cars per lane should be at most 2.
+
+\subsection{Actions}
+The actions for any car on the highway environment is to stay in the same lane (idle), move left or right. Furthermore, continuous actions can be applied using kinematics where the speed of going left and right and the distance will also be taken into consideration when training the agent using non-tabular methods.
+
+\subsection{Transition dynamics}
+The transition dynamics of the agent will be the probabilities of going to each of the lanes next to the agent, as well as staying in the same lane. Furthermore, their is also the probability of the agent to crash for each lane the agent is on.
+
+\subsection{Reward function}
+As the goal of the agent is to be as fast as possible, the reward function will be negative rewards when the car crashes. However, the negative rewards need to be balanced so the agent isn't scared of going too fast because it is afraid of crashing. Moreover, the agent will be intrinsically motivated to get ahead as possible in the time it is given.
 
 \subsection{Difficulty and challenges}
 
@@ -116,6 +124,7 @@ While existing DQN provides a solid foundation, there remains significant room f
 
 % In "method" make connection to this part, explaining why DQN and rainbow DQN are implemented.
 
+
 % To address these challenges, we aim to implement Rainbow DQN, which integrates several advanced techniques, such as prioritized replay, dueling networks, and distributional RL, to build upon the strengths of DQN. This will enable the agent to achieve better performance and faster convergence, particularly in scenarios with dynamic and dense highway environments.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -126,26 +135,115 @@ Students should demonstrate a good understanding of their chosen method(s) and g
 
 Students may show evidence of creativity in their algorithmic approach and analysis. Students should demonstrate a deep understanding of their chosen method(s), as well as possible alternative approaches. (70\%)
 
+
+\subsection{Deep Q-Learning Network (DQN)}
+
+DQN used to solve your problem and how they work, and why I chose you it.
+
+Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices. 
+This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
+
+show evidence of creativity in their algorithmic approach and analysis.
+Demonstrate deep understanding of DQN and possible alternative approaches. 
+
+DQN is a value based deep reinforcement learning algorithm that combines Q-Learning with deep neural networks to solve our environment as the state space contains too many features that make it hard to handle using a tabular method.
+Therefore a neural network generates an output of the estimated Q-values of all possible actions given the state.
+For the chosen problem, there are two types of states that exist are Kinematics and Grey Scale image.
+
+Kinematics refers to an array of nearby vehicles and their features. Some features are the \(x, y\) position of either the agent vehicle or other vehicles offset with the agent vehicle, \(x_{velocity}, y_{velocity}\) of the vehicles.
+% info can be found: https://highway-env.farama.org/observations/#kinematics
+A Multilayer perceptron (MLP) neural network will be used to take in this state and get the Q-values of the available actions.
+A MLP can learn the nonlinear relationships between data as it uses multiple layers of neurons with non-linear activation functions (RelU).
+Then using the Q-Values of the network we get the action with the highest Q-Value.
+However, as the output is vehicle order dependent, it might not be able to generalize the network towards vehicles in different orders.
+
+This is the reason for Grayscale Images, where we process the scenario of the environment with the road and the vehicles.
+This provides a more realistic and accurate representations of the state.
+Therefore, a Convolutional Neural Network (CNN) is used to process the grayscale image of the environment instead of getting the features of nearby vehicles.
+Moreover, the CNN can also take channels of the image normally represented as \(r,g,b\), however as we are using grayscale we can use a set number of previous frames as the channels for a broader representation of the state.
+Nonetheless, this will be computationally heavier as it will take more dimensions and more data than an array.
+
+To train these model, we would need to do this...
+
+
+Furthermore, to improve the outputs of these neural networks gradient 
+
+Experience Replay:
+cause of this memory buffer -> it uses the CPU more than the GPU
+
+The Bellman equation is used to 
+
+A Target Network is used 
+
+Epsilon-Greedy Policy:
+
+
+Furthermore, the following extensions for Rainbow DQN were implemented based on the results it showed during the evaluation of the model and the metrics.
+The metrics are stored using tensorboard to keep track of the average rewards, exploration rate (epsilon), episode length and the average loss of the episode.
+Moreover, due to the limitation of our personal computers, Google Colab was used to train the model.
+As Google Colab can't render the environment for displaying purposes, saving and loading the parameters and buffers of the neural networks.
+As the rendering of the model is done locally, loading of the model was done locally and the videos were recorded.
+I could also import a package to automatically record a video of the render, but do time and priorities, it wasn't achieved,
+
+\section{Extension: Rainbow DQN}
+Rainbow DQN refers to various extensions that are done to the basic DQN to improve the accuracy and the efficiency of the agent to reach the most optimal policy as fast as possible.
+
+\subsection{N-Steps}
+N-steps is an extension to the Bellman update from the Replay Memory.
+
+\subsection{Double}
+As the DQN is overestimating the Q Values which would not lead to optimal policy. 
+
+\subsection{Noisy Network}
+The Noisy Network would
+
+\subsection{Prioritized Experience Replay}
+This uses a structure to properly find the best Transition
+
+\subsection{Dueling}
+This requires a new neural network
+
 \section{Results (1 Page)}
-A presentation of your results, showing how quickly and how well your agent(s) learn (i.e. improve their policies). Include informative baselines for comparison (e.g. the best possible performance, the performance of an average human, or the performance of an agent that selects actions randomly).
+To evaluate the quantitative results, the tensorboard's results display how well the agent trains for the environment.
+
+Display the different Extension of the Rainbow as well as MLP and CNN.
+
+A presentation of your results, showing how quickly and how well your agent(s) learn (i.e. improve their policies).
+
+nclude informative baselines for comparison 
+(e.g. the best
+possible performance, the performance of an average human, or the performance of an agent
+that selects actions randomly).
 
 \section{Discussion (< 2 Page)}
 An evaluation of how well you solved your chosen problem.
 
-Students should thoroughly evaluate the performance of their agent(s), and include comparisons with key baselines and some alternative approaches.(60\%)
+evaluate the performance of their agent(s),and include comparisons with key baselines and some alternative approaches.(60\%)
 
-Students should perform an in-depth evaluation of their chosen method(s) and include comparisons to and evaluations of additional baselines and alternative methods.(70\%)
+
+
+perform an in-depth evaluation of their chosen method(s) and include comparisons to and evaluations of additional baselines and alternative methods.(70\%)
+
+Monte Carlo
+
+DQN
+
+PPO
 
 
 \section{Future Work (0.5 Page)}
-A discussion of potential future work you would complete if you had more
-time.
+A discussion of potential future work you would complete if you had more time.
 
 \section{Personal Experience (0.5 Page)}
 A discussion of your personal experience with the project, such as difficulties or pleasant surprises you encountered while completing it.
 
+There were various difficulties with the implementation of Rainbow DQN.
+Firstly, the neural networks used (MLP and CNN) were initially used softmax when getting the probabilities, however this proved that large values for the CNN at the start of training proved that it would converge to a policy that would produce the same results as softmax makes the probabilities the same and would always choose the first one during argmax.
+Therefore, to debug the neural network, the CNN was simplified and removed the softmax to fix issues regarding the actions chosen from the policy.
+
+
 \newpage
-\bibliographystyle{unsrtnat} 
+\bibliographystyle{unsrt} 
 \bibliography{references} 
 
 \normalsize
