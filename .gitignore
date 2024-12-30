@@ -1,6 +1,13 @@
 
-Code/HighwayEnv/
+/Code/HighwayEnv/
 /Code/Agents/DQN/hyperparameters
 /Code/Agents/DQN/CnnPolicy_save_models
 /Code/Agents/DQN/training_results
 /Code/Agents/DQN/highway_dqn
+/Code/Agents/ValueIteration/policies.json
+/Code/Agents/ValueIteration/finite_mdp/__pycache__
+/code/agents/human/training_results
+/Code/Agents/__pycache__
+/Code/Agents/ValueIteration/training_results
+/Code/Agents/Baselines/training_results
+/Code/Agents/DQN/MlpPolicy_save_models
