@@ -8,3 +8,5 @@
 /Code/Agents/ValueIteration/finite_mdp/__pycache__
 /code/agents/human/training_results
 /Code/Agents/__pycache__
+/Code/Agents/ValueIteration/training_results
+/Code/Agents/Baselines/training_results
