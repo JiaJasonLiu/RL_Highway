@@ -203,6 +203,20 @@ This uses a structure to properly find the best Transition
 \subsection{Dueling}
 This requires a new neural network
 
+There are two
+- Looks at the advantage of the action compared to the other actions and mean of all q-values (the estimate of V(s))
+The state value (V) and the advantage value (A) are then aggregated layer into estimate state-action value Q.
+Display the equation of it
+Benefits:
+- during training: because we are using the TD (temporal difference) error
+- by separating them we can update the state value function and also the advantage -> to reordering the best actions
+a.mean() -> normalizes the output to be close to zero
+
+- this architecture is able to learn how valuable the state is without considering the actions needed to take
+ -> so basically we can weight the actions based on the type of state we are currently in
+
+IMPORTANT: only one output neural (the action choosen) is being updated at a time (in my case the batch of states action values)
+
 \section{Results (1 Page)}
 To evaluate the quantitative results, the tensorboard's results display how well the agent trains for the environment.
 
