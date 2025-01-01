@@ -165,7 +165,6 @@ Nonetheless, this will be computationally heavier as it will take more dimension
 
 To train these model, we would need to do this...
 
-
 Furthermore, to improve the outputs of these neural networks gradient 
 
 Experience Replay:
@@ -190,15 +189,32 @@ Rainbow DQN refers to various extensions that are done to the basic DQN to impro
 
 \subsection{N-Steps}
 N-steps is an extension to the Bellman update from the Replay Memory.
+The n-steps would get the n states after the randomly selected states from replay memory to capture the future information of the states.
+This increase the accuracy of the representation of the memory by reducing the variance and learns more about the states with less episodes.
 
 \subsection{Double}
-As the DQN is overestimating the Q Values which would not lead to optimal policy. 
+The problem with DQN is that it has the max operator of the actions values, which tend to prefer overestimated (higher) values instead of the lower ones.
+Therefore, it would continuously select the highest action value instead of getting the values of the best action, learning to a suboptimal policy.
+This is where Double DQN which takes the best actions from the trained network and uses it to get the probability (Q values) of that action in the target network to get how far we are from the best action.
+This will help with the target value overestimating the action values by separating the action selection and evaluation.
 
 \subsection{Noisy Network}
-The Noisy Network would
+The Noisy Network is a Network or a Layer that is used for explorations instead of epsilon-greedy policy which is predetermined decrease of randomly selecting actions which is suitable for simpler environments.
+This paper, adds noise to the weights (sigma and mu) to the weights of a network for the network to slowly adapt to the noisy over a period of time resulting in more adaptive exploration.
+The intensity of the noise is the epsilon which is initialized in the beginning of the network and sampled using the Factorized Gaussian Distribution.
+Put the equation here:
+
+ noise was implemented using the two weights (sigma and mu) as two vectors being of the size of the input and output respectively.
+Factorized is used to decrease the sample amount and also ensuring non-negative values to make it more scalable
+
 
 \subsection{Prioritized Experience Replay}
-This uses a structure to properly find the best Transition
+PER is an improvement to the Memory Replay to storing and sampling memories based on there importance, or how much loss they generate.
+Instead of randomly sampling experiences, PER is used to sample a proportion of the states.
+
+This uses a Sum Segment Tree from OpenAI Baseline to store the indexes of the memories and their corresponding priorities to be retrieved later.
+You then get the average of the priorities in the tree and uses it to get the index with the highest priority.
+Then using these indexes to return there states and weights to how much should the loss be punished to be updated.
 
 \subsection{Dueling}
 This requires a new neural network
@@ -229,6 +245,9 @@ nclude informative baselines for comparison
 possible performance, the performance of an average human, or the performance of an agent
 that selects actions randomly).
 
+% TODO: Have a table that shows the average rewards after certain amount of iterations:
+
+
 \section{Discussion (< 2 Page)}
 An evaluation of how well you solved your chosen problem.
 
@@ -241,12 +260,25 @@ perform an in-depth evaluation of their chosen method(s) and include comparisons
 Monte Carlo
 
 DQN
+The implementation of Rainbow DQN showed that MLP wasn't the best policy since it didn't have as much information as with CNN.
+Therefore, as most of the features were implemented using the CNN policy, it would result in a better outcome.
+
+TODO: talk about the difference between the different stuff
 
 PPO
+
+Overall, it still does seem that this environment is still more suitable for humans to control as the human agent performed the best and got the best results.
+So, it can be said that self-driving cars would require either as many senses as humans and be trained for tremendous amounts of times to reach a level that humans are at.
+
+
 
 
 \section{Future Work (0.5 Page)}
 A discussion of potential future work you would complete if you had more time.
+
+Potential future work that could be completed with more time is to finish PPO and make it better than DQN as shown in some other results.
+
+
 
 \section{Personal Experience (0.5 Page)}
 A discussion of your personal experience with the project, such as difficulties or pleasant surprises you encountered while completing it.
@@ -254,7 +286,6 @@ A discussion of your personal experience with the project, such as difficulties 
 There were various difficulties with the implementation of Rainbow DQN.
 Firstly, the neural networks used (MLP and CNN) were initially used softmax when getting the probabilities, however this proved that large values for the CNN at the start of training proved that it would converge to a policy that would produce the same results as softmax makes the probabilities the same and would always choose the first one during argmax.
 Therefore, to debug the neural network, the CNN was simplified and removed the softmax to fix issues regarding the actions chosen from the policy.
-
 
 \newpage
 \bibliographystyle{unsrt} 
