@@ -12,3 +12,6 @@
 /Code/Agents/Baselines/training_results
 /Code/Agents/DQN/MlpPolicy_save_models
 /Code/Agents/DQN/__pycache__
+/Code/Agents/PPO/CnnPolicy_save_models
+/Code/Agents/PPO/training_results
+/Code/Agents/PPO/MlpPolicy_save_models
