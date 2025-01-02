@@ -20,10 +20,7 @@
 \usepackage{microtype}      % microtypography
 \usepackage{graphicx}
 
-
-% Give your project report an appropriate title!
-
-\title{RL Project Template}
+\title{Mastering the Highway using Rainbow DQN and PPO}
 
 
 % The \author macro works with any number of authors. There are two
@@ -37,11 +34,11 @@
 % author name.
 
 \author{
-  Jason Liu \\
+  Jia Sheng Liu \\
   Department of Computer Science \\
   University of Bath \\
   Bath, BA2 7AY \\
-  \texttt{xxxx@bath.ac.uk} \\
+  \texttt{jsl86@bath.ac.uk} \\
   \And
   Le Lyu \\
   Department of Computer Science \\
@@ -164,18 +161,23 @@ Therefore, a Convolutional Neural Network (CNN) is used to process the grayscale
 Moreover, the CNN can also take channels of the image normally represented as \(r,g,b\), however as we are using grayscale we can use a set number of previous frames as the channels for a broader representation of the state.
 Nonetheless, this will be computationally heavier as it will take more dimensions and more data than an array.
 
-To train these model, we would need to do this...
+Furthermore, the inputs for the networks are the states.
+DQN processes the states of the by first storing them into a memory replay circular buffer to be accessed after each time step.
+This is so that it can have a equal distribution of all the states that the agent has seen, so that it wouldn't forget any previously seen states.
+Nonetheless, the buffer still has a limit and so old states will be overwritten when new ones come in and the buffer is full.
+As the agent needs to learn at the start of the training, the agent will traverse through the environment an just store the state relevant information in there.
 
-Furthermore, to improve the outputs of these neural networks gradient 
+As the agent learn from the memory replay it uses the Bellman equation on the target network versus the trained network for the best possible action against the action chosen and its discount value.
+Denote with the equation (not sure if it should be put)
+Then used the mean square error loss as the Huber Loss (maybe it should be L1 smooth loss) to get how far the best action is from the action chosen and update the q training network's parameters using gradient descent and backpropagation to output an action for similar states.
+Furthermore, to prevent exploding gradients (TODO: add a reference here) I have clipped the gradients to 10.
 
-Experience Replay:
-cause of this memory buffer -> it uses the CPU more than the GPU
-
-The Bellman equation is used to 
-
-A Target Network is used 
 
 Epsilon-Greedy Policy:
+This uses epsilon decay to slowly decrease epsilon which decreases the amount of randomness that the actor performs.
+Instead of having a constant that goes down slowly regardless of the total amount of episodes defined where the epsilon might be big before ending the training.
+Linear annealing schedule was used to decrease the epsilon depending on the total amount of episodes.
+A float (0 to 1) will be assigned to decide if the actor should reach the minimum epsilon during 1 to 100\% of the training
 
 
 Furthermore, the following extensions for Rainbow DQN were implemented based on the results it showed during the evaluation of the model and the metrics.
@@ -186,59 +188,47 @@ As the rendering of the model is done locally, loading of the model was done loc
 I could also import a package to automatically record a video of the render, but do time and priorities, it wasn't achieved,
 
 \section{Extension: Rainbow DQN}
-Rainbow DQN refers to various extensions that are done to the basic DQN to improve the accuracy and the efficiency of the agent to reach the most optimal policy as fast as possible.
+Rainbow DQN refers to various extensions on top of the basic DQN to improve the accuracy, speed,  and efficiency of the agent to reach the most optimal policy.
+The extensions N-Steps, Double, Noisy Network, Prioritized Experience Replay (PER) and Dueling Network were implemented.
 
-\subsection{N-Steps}
-N-steps is an extension to the Bellman update from the Replay Memory.
-The n-steps would get the n states after the randomly selected states from replay memory to capture the future information of the states.
+N-steps is an extension to the Bellman update from the Replay Memory~\cite{garcia_understanding_2019}.
+Depending on the n, we retrieve n states after the chosen one to capture the future information of the states and then aggregated those Q values into the selected state.
 This increase the accuracy of the representation of the memory by reducing the variance and learns more about the states with less episodes.
 
-\subsection{Double}
-The problem with DQN is that it has the max operator of the actions values, which tend to prefer overestimated (higher) values instead of the lower ones.
+Moreover, the max operator of the actions values tends to prefer overestimated (higher) values instead of the lower ones.
 Therefore, it would continuously select the highest action value instead of getting the values of the best action, learning to a suboptimal policy.
-This is where Double DQN which takes the best actions from the trained network and uses it to get the probability (Q values) of that action in the target network to get how far we are from the best action.
-This will help with the target value overestimating the action values by separating the action selection and evaluation.
+Double DQN then takes the best actions from the trained network and uses it to get the probability (Q values) of that action in the target network loss to learn the best action in the state~\cite{hasselt_deep_2015}.
+This will stop the target value when overestimating the action values by separating the action selection and evaluation.
 
-\subsection{Noisy Network}
 The Noisy Network is a Network or a Layer that is used for explorations instead of epsilon-greedy policy which is predetermined decrease of randomly selecting actions which is suitable for simpler environments.
-This paper, adds noise to the weights (sigma and mu) to the weights of a network for the network to slowly adapt to the noisy over a period of time resulting in more adaptive exploration.
+This paper~\cite{fortunato_noisy_2019}, adds noise to the weights (sigma and mu) to the weights of a network for the network to slowly adapt to the noisy over a period of time resulting in more adaptive exploration.
 The intensity of the noise is the epsilon which is initialized in the beginning of the network and sampled using the Factorized Gaussian Distribution.
 Put the equation here:
 
 Noise was implemented using the two weights (sigma and mu) as two vectors being of the size of the input and output respectively.
 Factorized is used to decrease the sample amount and also ensuring non-negative values to make it more scalable
 
-\subsection{Prioritized Experience Replay}
-PER is an improvement to the Memory Replay to storing and sampling memories based on there importance, or how much loss they generate.
-Instead of randomly sampling experiences, PER is used to sample a proportion of the states.
 
-This uses a Sum Segment Tree from OpenAI Baseline to store the indexes of the memories and their corresponding priorities to be retrieved later.
-You then get the average of the priorities in the tree and uses it to get the index with the highest priority.
-Then using these indexes to return there states and weights to how much should the loss be punished to be updated.
+PER is a new Memory Replay for storing and sampling memories based on there importance, which how much loss they generate.~\cite{schaul_prioritized_2016}.
+Instead of randomly sampling experiences, PER is used to sample a proportion of the states based on how much it influences the agent.
+The storage uses a Sum Segment Tree to store the indexes of the memories and their corresponding priorities to be retrieved.
+Then the average sum of the priorities in the tree is used to get the index with the highest priority.
+These indexes retrieve the transitions and its equivalent weights to how much should the loss be punished to be updated.
+This utilizes importance sampling \((1/N * 1/P(i))^{\beta}\) to compensate for when beta is 1 for non-uniform probabilities.
 
-\subsection{Dueling}
-This requires a new neural network
 
-There are two
-- Looks at the advantage of the action compared to the other actions and mean of all q-values (the estimate of V(s))
-The state value (V) and the advantage value (A) are then aggregated layer into estimate state-action value Q.
-Display the equation of it
-Benefits:
-- during training: because we are using the TD (temporal difference) error
-- by separating them we can update the state value function and also the advantage -> to reordering the best actions
-a.mean() -> normalizes the output to be close to zero
-
-- this architecture is able to learn how valuable the state is without considering the actions needed to take
- -> so basically we can weight the actions based on the type of state we are currently in
-
-IMPORTANT: only one output neural (the action choosen) is being updated at a time (in my case the batch of states action values)
+Dueling Network consists of 2 additional layers that separate the estimation of the state value and the action advantage function~\cite{wang_dueling_2016}.
+The action advantage function is the difference between the Q-values for a state.
+The state value (V) and the advantage value (A) are then aggregated layer to learn the Q value of the state without considering its actions, and weighting how important it truly is.
+I take the mean of the advantage layer to normalize the output so V(s) doesn't contain information about the action values.
+The benefits during training is that because it uses the TD error, it separates updating the state value function and action advantage function to reordering the best actions.
+Furthermore, only one output neural (the action chosen) is being updated at a time, so the separation leads to more stable learning and generalizability across different states and actions.
 
 %################################################################################
 \section{Extension: Proximal Policy Optimization (PPO)}
 Building upon these value-based RL methods, we implemented PPO, a policy-based method to explore policy optimization as an alternative to value iteration. 
 PPO's recent successful applications in similar highway driving tasks (Section\ref{sec: related-work}) suggest that it is a reasonable candidate for our implementation. 
 By introducing PPO, we sought to leverage its capacity for stable policy updates and explore its potential for achieving more adaptive behavior in dynamic traffic scenarios.
-
 
 
 
@@ -251,9 +241,9 @@ Display the different Extension of the Rainbow as well as MLP and CNN.
 A presentation of your results, showing how quickly and how well your agent(s) learn (i.e. improve their policies).
 
 nclude informative baselines for comparison 
-(e.g. the best
-possible performance, the performance of an average human, or the performance of an agent
-that selects actions randomly).
+best agent
+human agent
+random agent
 
 % TODO: Have a table that shows the average rewards after certain amount of iterations:
 
@@ -301,12 +291,12 @@ Therefore, to debug the neural network, the CNN was simplified and removed the s
 \bibliographystyle{unsrt} 
 \bibliography{references} 
 
-\normalsize
-\newpage
-\section*{Appendices}
-If you have additional content that you would like to include in the appendices, please do so here.
-There is no limit to the length of your appendices, but we are not obliged to read them in their entirety while marking. The main body of your report should contain all essential information, and the content in the appendices should be clearly referenced where it's needed elsewhere.
-\subsection*{Appendix A: Example Appendix 1}
-\subsection*{Appendix B: Example Appendix 2}
+% \normalsize
+% \newpage
+% \section*{Appendices}
+% If you have additional content that you would like to include in the appendices, please do so here.
+% There is no limit to the length of your appendices, but we are not obliged to read them in their entirety while marking. The main body of your report should contain all essential information, and the content in the appendices should be clearly referenced where it's needed elsewhere.
+% \subsection*{Appendix A: Example Appendix 1}
+% \subsection*{Appendix B: Example Appendix 2}
 
 \end{document}
