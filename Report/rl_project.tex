@@ -172,6 +172,7 @@ Denote with the equation (not sure if it should be put)
 Then used the mean square error loss as the Huber Loss (maybe it should be L1 smooth loss) to get how far the best action is from the action chosen and update the q training network's parameters using gradient descent and backpropagation to output an action for similar states.
 Furthermore, to prevent exploding gradients (TODO: add a reference here) I have clipped the gradients to 10.
 
+
 Epsilon-Greedy Policy:
 This uses epsilon decay to slowly decrease epsilon which decreases the amount of randomness that the actor performs.
 Instead of having a constant that goes down slowly regardless of the total amount of episodes defined where the epsilon might be big before ending the training.
