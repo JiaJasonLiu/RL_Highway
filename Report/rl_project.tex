@@ -205,9 +205,8 @@ This paper, adds noise to the weights (sigma and mu) to the weights of a network
 The intensity of the noise is the epsilon which is initialized in the beginning of the network and sampled using the Factorized Gaussian Distribution.
 Put the equation here:
 
- noise was implemented using the two weights (sigma and mu) as two vectors being of the size of the input and output respectively.
+Noise was implemented using the two weights (sigma and mu) as two vectors being of the size of the input and output respectively.
 Factorized is used to decrease the sample amount and also ensuring non-negative values to make it more scalable
-
 
 \subsection{Prioritized Experience Replay}
 PER is an improvement to the Memory Replay to storing and sampling memories based on there importance, or how much loss they generate.
@@ -236,7 +235,11 @@ IMPORTANT: only one output neural (the action choosen) is being updated at a tim
 
 %################################################################################
 \section{Extension: Proximal Policy Optimization (PPO)}
-Building upon these value-based RL methods, we implemented PPO, a policy-based method to explore policy optimization as an alternative to value iteration. PPO's recent successful applications in similar highway driving tasks (Section \ref{sec: related-work}) suggest that it is a reasonable candidate for our implementation. By introducing PPO, we sought to leverage its capacity for stable policy updates and explore its potential for achieving more adaptive behavior in dynamic traffic scenarios.
+Building upon these value-based RL methods, we implemented PPO, a policy-based method to explore policy optimization as an alternative to value iteration. 
+PPO's recent successful applications in similar highway driving tasks (Section\ref{sec: related-work}) suggest that it is a reasonable candidate for our implementation. 
+By introducing PPO, we sought to leverage its capacity for stable policy updates and explore its potential for achieving more adaptive behavior in dynamic traffic scenarios.
+
+
 
 
 

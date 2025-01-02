@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.7)  1 JAN 2025 20:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.7)  2 JAN 2025 17:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -314,8 +314,7 @@ File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count310
 \l__pdf_internal_box=\box52
-)
-No file rl_project.aux.
+) (./rl_project.aux)
 \openout1 = `rl_project.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 65.
@@ -336,7 +335,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 65.
 LaTeX Font Info:    ... okay on input line 65.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 65.
 LaTeX Font Info:    ... okay on input line 65.
-(/usr/local/texlive/2024/texmf-dist/tex/latex/fmtcount/fc-english.def
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/fmtcount/fc-english.def
 File: fc-english.def 2016/01/12
 )
 *geometry* driver: auto-detecting
@@ -476,50 +475,60 @@ Package microtype Info: Loading generic protrusion settings for font family
 Package natbib Warning: Citation `sutton_policy_1999' on page 2 undefined on input line 98.
 
 
-Package natbib Warning: Citation `schulman_proximal_2017' on page 2 undefined on input line 101.
+Package natbib Warning: Citation `schulman_proximal_2017' on page 2 undefined on input line 102.
 
 
-Package natbib Warning: Citation `forneris_implementing_2023' on page 2 undefined on input line 103.
+Package natbib Warning: Citation `forneris_implementing_2023' on page 2 undefined on input line 104.
 
 
-Package natbib Warning: Citation `pighetti_high-level_2022' on page 2 undefined on input line 105.
+Package natbib Warning: Citation `pighetti_high-level_2022' on page 2 undefined on input line 106.
 
 
-Package natbib Warning: Citation `forneris_implementing_2023' on page 2 undefined on input line 105.
+Package natbib Warning: Citation `forneris_implementing_2023' on page 2 undefined on input line 106.
 
 
-Package natbib Warning: Citation `capello_investigating_2023' on page 2 undefined on input line 105.
+Package natbib Warning: Citation `capello_investigating_2023' on page 2 undefined on input line 106.
 
 
-Package natbib Warning: Citation `pighetti_high-level_2022' on page 2 undefined on input line 108.
+Package natbib Warning: Citation `pighetti_high-level_2022' on page 2 undefined on input line 109.
 
 
-Package natbib Warning: Citation `forneris_implementing_2023' on page 2 undefined on input line 108.
+Package natbib Warning: Citation `forneris_implementing_2023' on page 2 undefined on input line 109.
 
 
-Package natbib Warning: Citation `leurent_social_2019' on page 2 undefined on input line 119.
+Package natbib Warning: Citation `leurent_social_2019' on page 2 undefined on input line 120.
 
 
-Package natbib Warning: Citation `bellotti_designing_2023' on page 2 undefined on input line 119.
+Package natbib Warning: Citation `bellotti_designing_2023' on page 2 undefined on input line 120.
 
 
-Package natbib Warning: Citation `bellotti_explaining_2023' on page 2 undefined on input line 121.
+Package natbib Warning: Citation `bellotti_explaining_2023' on page 2 undefined on input line 122.
 
 
-Package natbib Warning: Citation `bellotti_designing_2023' on page 2 undefined on input line 121.
+Package natbib Warning: Citation `bellotti_designing_2023' on page 2 undefined on input line 122.
 
 [2]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [3] [4] [5] (./rl_project.bbl)
+ [3] [4]
+
+LaTeX Warning: Reference `sec: related-work' on page 5 undefined on input line 239.
+
+[5] [6] (./rl_project.bbl)
 
 Package natbib Warning: There were undefined citations.
 
-[6] (./rl_project.aux)
+[7] (./rl_project.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 
 Package rerunfilecheck Warning: File `rl_project.out' has changed.
@@ -528,21 +537,21 @@ Package rerunfilecheck Warning: File `rl_project.out' has changed.
 
 Package rerunfilecheck Info: Checksums for `rl_project.out':
 (rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  546A91B0D561FFD5C7712A5C89461657;3366.
+(rerunfilecheck)             After:  4DC720472043D54026F52436CC00700A;3653.
  ) 
 Here is how much of TeX's memory you used:
- 12767 strings out of 474116
- 201894 string characters out of 5743682
+ 12773 strings out of 474116
+ 201985 string characters out of 5743682
  1940187 words of memory out of 5000000
- 34770 multiletter control sequences out of 15000+600000
+ 34772 multiletter control sequences out of 15000+600000
  585358 words of font info for 152 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  87i,8n,93p,1066b,451s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on rl_project.pdf (6 pages, 112178 bytes).
+Output written on rl_project.pdf (7 pages, 113302 bytes).
 PDF statistics:
- 96 PDF objects out of 1000 (max. 8388607)
- 75 compressed objects within 1 object stream
- 32 named destinations out of 1000 (max. 500000)
+ 103 PDF objects out of 1000 (max. 8388607)
+ 81 compressed objects within 1 object stream
+ 34 named destinations out of 1000 (max. 500000)
  28673 words of extra memory for PDF output out of 29859 (max. 10000000)
 

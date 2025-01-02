@@ -131,6 +131,9 @@ INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/graphics-def/pdftex.def
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/graphics-def/pdftex.def
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+INPUT ./rl_project.aux
+INPUT ./rl_project.aux
+INPUT rl_project.aux
 OUTPUT rl_project.aux
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/fmtcount/fc-english.def
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/fmtcount/fc-english.def

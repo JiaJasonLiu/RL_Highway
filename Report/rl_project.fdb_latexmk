@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex rl_project"] 1735736892.6307 "rl_project.aux" "rl_project.bbl" "rl_project" 1735762454.74115 2
+["bibtex rl_project"] 0 "rl_project.aux" "rl_project.bbl" "rl_project" 0 -1
   "./references.bib" 1735561176.57838 16226 3a34d3d4c816753a2436a589716240bc ""
   "/usr/local/texlive/2024/texmf-dist/bibtex/bst/base/unsrt.bst" 1292289607 18030 1376b4b231b50c66211e47e42eda2875 ""
-  "rl_project.aux" 1735762454.50364 3326 88d0005fc87ad55538ce0fbe7a8937bb "pdflatex"
+  "rl_project.aux" 1735837391.14224 3554 2add133dfd8b1a685c13eb06060d1e19 "pdflatex"
   (generated)
   "rl_project.bbl"
   "rl_project.blg"
   (rewritten before read)
-["pdflatex"] 1735762453.88489 "/Users/jiashengliu/Documents/1.GitHub/CM30359-RL-CW/Report/rl_project.tex" "rl_project.pdf" "rl_project" 1735762454.74128 2
-  "/Users/jiashengliu/Documents/1.GitHub/CM30359-RL-CW/Report/rl_project.tex" 1735762452.62871 20847 8d352f6cfb57d57be2db63ea942a6081 ""
+["pdflatex"] 1735837390.45954 "/Users/jiashengliu/Documents/1.GitHub/CM30359-RL-CW/Report/rl_project.tex" "rl_project.pdf" "rl_project" 1735837391.4784 2
+  "/Users/jiashengliu/Documents/1.GitHub/CM30359-RL-CW/Report/rl_project.tex" 1735837388.83927 21514 feb7911e0984175d64215e739c56df42 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -110,11 +110,11 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1730973465.02009 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1730973426 8221433 8ac42bdf227be235efcd099a98a5eebf ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "rl_project.aux" 1735762454.50364 3326 88d0005fc87ad55538ce0fbe7a8937bb "pdflatex"
-  "rl_project.bbl" 1735736892.74362 0 d41d8cd98f00b204e9800998ecf8427e "bibtex rl_project"
-  "rl_project.out" 1735762454.50454 3366 546a91b0d561ffd5c7712a5c89461657 "pdflatex"
+  "rl_project.aux" 1735837391.14224 3554 2add133dfd8b1a685c13eb06060d1e19 "pdflatex"
+  "rl_project.bbl" 1735822567.04073 0 d41d8cd98f00b204e9800998ecf8427e "bibtex rl_project"
+  "rl_project.out" 1735837391.14313 3653 4dc720472043d54026f52436cc00700a "pdflatex"
   "rl_project.sty" 1731762545.54188 11111 4c7fdc1a31bb7e7def45a22df0521e7b ""
-  "rl_project.tex" 1735762452.62871 20847 8d352f6cfb57d57be2db63ea942a6081 ""
+  "rl_project.tex" 1735837388.83927 21514 feb7911e0984175d64215e739c56df42 ""
   (generated)
   "rl_project.aux"
   "rl_project.log"
