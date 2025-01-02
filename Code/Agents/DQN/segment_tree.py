@@ -136,21 +136,3 @@ class SumSegmentTree(SegmentTree):
                 prefixsum -= self._value[2 * idx]
                 idx = 2 * idx + 1
         return idx - self._capacity
-
-
-class MinSegmentTree(SegmentTree):
-    """
-    This Class was token from OpenAI Baseline Github Repository
-    https://github.com/openai/baselines/blob/master/baselines/common/segment_tree.py
-    """
-    def __init__(self, capacity):
-        super(MinSegmentTree, self).__init__(
-            capacity=capacity,
-            operation=min,
-            neutral_element=float('inf')
-        )
-
-    def min(self, start=0, end=None):
-        """Returns min(arr[start], ...,  arr[end])"""
-
-        return super(MinSegmentTree, self).reduce(start, end)
