@@ -15,3 +15,6 @@
 /Code/Agents/PPO/CnnPolicy_save_models
 /Code/Agents/PPO/training_results
 /Code/Agents/PPO/MlpPolicy_save_models
+Report/rl_project.aux
+Report/rl_project.blg
+Report/rl_project.fdb_latexmk

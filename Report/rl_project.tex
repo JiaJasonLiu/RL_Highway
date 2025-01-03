@@ -170,7 +170,8 @@ As the agent needs to learn at the start of the training, the agent will travers
 As the agent learn from the memory replay it uses the Bellman equation on the target network versus the trained network for the best possible action against the action chosen and its discount value.
 Denote with the equation (not sure if it should be put)
 Then used the mean square error loss as the Huber Loss (maybe it should be L1 smooth loss) to get how far the best action is from the action chosen and update the q training network's parameters using gradient descent and backpropagation to output an action for similar states.
-Furthermore, to prevent exploding gradients (TODO: add a reference here) I have clipped the gradients to 10.
+Furthermore, to prevent exploding gradients I have clipped the gradients to \([-1,1]\)~\cite{mnih_human-level_2015} for more stable training.
+
 
 
 Epsilon-Greedy Policy:
@@ -187,8 +188,8 @@ As Google Colab can't render the environment for displaying purposes, saving and
 As the rendering of the model is done locally, loading of the model was done locally and the videos were recorded.
 I could also import a package to automatically record a video of the render, but do time and priorities, it wasn't achieved,
 
-\section{Extension: Rainbow DQN}
-Rainbow DQN refers to various extensions on top of the basic DQN to improve the accuracy, speed,  and efficiency of the agent to reach the most optimal policy.
+\section{Rainbow DQN}
+Rainbow DQN refers to various extensions on top of the basic DQN to improve the accuracy, speed,  and efficiency of the agent to reach the most optimal policy~\cite{hessel_rainbow_2017}.
 The extensions N-Steps, Double, Noisy Network, Prioritized Experience Replay (PER) and Dueling Network were implemented.
 
 N-steps is an extension to the Bellman update from the Replay Memory~\cite{garcia_understanding_2019}.
@@ -211,11 +212,20 @@ Factorized is used to decrease the sample amount and also ensuring non-negative 
 
 PER is a new Memory Replay for storing and sampling memories based on there importance, which how much loss they generate.~\cite{schaul_prioritized_2016}.
 Instead of randomly sampling experiences, PER is used to sample a proportion of the states based on how much it influences the agent.
-The storage uses a Sum Segment Tree to store the indexes of the memories and their corresponding priorities to be retrieved.
+The storage uses a Sum Segment Tree to store the indexes of the memories and their corresponding priorities to be retrieved as the leafs and the parent nodes as the sums.
+The leafs are stored as (2 * capacity) + index and then propagate upwards to update the sum all stored in an array.
 Then the average sum of the priorities in the tree is used to get the index with the highest priority.
 These indexes retrieve the transitions and its equivalent weights to how much should the loss be punished to be updated.
 This utilizes importance sampling \((1/N * 1/P(i))^{\beta}\) to compensate for when beta is 1 for non-uniform probabilities.
+The retrieval of the elements are based on dividing the index by two to get the sum of it.
 
+Prioritized replay introduces bias because it changes this
+distribution in an uncontrolled fashion, and therefore changes the solution that the estimates will
+converge to (even if the policy and state distribution are fixed). 
+
+Correct bias using importance-sampling (IS) 
+hat fully compensates for the non-uniform probabilities \(P(i) if \beta = 1\). 
+% These weights can be folded into the Q-learning update by using w_i * δ_i instead of δ_i (this is thus weighted IS, not ordinary IS, see e.g. Mahmood et al., 2014).
 
 Dueling Network consists of 2 additional layers that separate the estimation of the state value and the action advantage function~\cite{wang_dueling_2016}.
 The action advantage function is the difference between the Q-values for a state.
@@ -225,7 +235,7 @@ The benefits during training is that because it uses the TD error, it separates 
 Furthermore, only one output neural (the action chosen) is being updated at a time, so the separation leads to more stable learning and generalizability across different states and actions.
 
 %################################################################################
-\section{Extension: Proximal Policy Optimization (PPO)}
+\section{Proximal Policy Optimization (PPO)}
 Building upon these value-based RL methods, we implemented PPO, a policy-based method to explore policy optimization as an alternative to value iteration. 
 PPO's recent successful applications in similar highway driving tasks (Section\ref{sec: related-work}) suggest that it is a reasonable candidate for our implementation. 
 By introducing PPO, we sought to leverage its capacity for stable policy updates and explore its potential for achieving more adaptive behavior in dynamic traffic scenarios.
