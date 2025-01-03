@@ -277,10 +277,15 @@ Overall, the training process for PPO follows an iterative approach\cite{schulma
 To collect data, a class \texttt{train\_data} is used to record all necessary data for each step, including state, the chosen action, value of the state, reward, log of probability, and whether the episode end.
 
 \subsubsection{Generalized Advantage Estimation (GAE)}
-Similar top Dueling Network in DQN, the advantage function is used to measure how much better or worse an action is compared to value of state, and it is generalized and normalized to balance bias and variance. Since policy are updated with minibatch, there exist situations that epoch ends with a non-terminal state of an episode. In this situation, the value of the last state is estimated using the value network.
+Similar top Dueling Network in DQN, the advantage function is used to measure how much better or worse an action is compared to value of state, and it is generalized and normalized to balance bias and variance. Since policy are updated with minibatch, there exist situations that epoch ends with a non-terminal state of an episode. In this case, the value of the last state is estimated using the value network.
 
 \subsubsection{Update Policy}
+After that, GAE is then used to compute loss function to update policy network with ADAM optimizer. Clipped surrogate $L^{\text{CLIP}}(\theta)$ was selected to implement as it outperforms other policy gradient methods\cite{schulman_proximal_2017}. The $L^{\text{CLIP}}(\theta)$ aims at maximize the improvement, but limit the change to avoid bug change in one iteration:
+\begin{equation}
+    L^{\text{CLIP}}(\theta) = \mathbb{E}_t \left[ \min \left( r_t(\theta) \hat{A}_t, \, \text{clip} \left( r_t(\theta), 1 - \epsilon, 1 + \epsilon \right) \hat{A}_t \right) \right]
+\end{equation}
 
+Where the ratio $r_t(\theta) = \frac{\pi_\theta(a_t \mid s_t)}{\pi_{\theta_\text{old}}(a_t \mid s_t)}$ is the probability ratio between current and old policies for taking action $a_t$ in state $s_t$. Therefore, $r_t(\theta) \hat{A}_t$ reflects ... and hence maximize improvement. However, to avoid big policy change in one iteration, the ratio of GAE is clipped between $1 - \epsilon$ and $1 + \epsilon$, where $\epsilon$ is a hyperparameter.
 
 \section{Results (1 Page)}
 To evaluate the quantitative results, the tensorboard's results display how well the agent trains for the environment.
