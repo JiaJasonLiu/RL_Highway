@@ -39,6 +39,7 @@ class SegmentTree(object):
     def _reduce_helper(self, start, end, node, node_start, node_end):
         if start == node_start and end == node_end:
             return self._value[node]
+        
         mid = (node_start + node_end) // 2
         if end <= mid:
             return self._reduce_helper(start, end, 2 * node, node_start, mid)
