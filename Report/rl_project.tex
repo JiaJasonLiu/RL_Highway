@@ -98,6 +98,7 @@ As the goal of the agent is to be as fast as possible, the reward function will 
 Several reinforcement learning (RL) solutions have been implemented for highway driving tasks. In general, they can be divided into two main classifications: policy-based methods, which optimize the reward via gradient ascent \citep{sutton_policy_1999}, and value-based methods, which select the next action based on the cumulative benefit of each action. %might need one more citation here
 
 \subsubsection{Policy-Based Methods}
+\label{sec: related-work}
 Policy-based methods, particularly those utilizing Proximal Policy Optimization (PPO), have emerged as a dominant solution due to their effectiveness in handling a wide range of challenging tasks and their simplicity in implementation and tuning \citep{schulman_proximal_2017}. 
 
 A key advantage of PPO-based methods is their ability to integrate high-level decision making. For example, \citep{forneris_implementing_2023} used a customized reward function to penalize risky actions and generate different driving styles, including behaviors such as “keep lane,” “overtake,” and “move to the rightmost lane.” 
@@ -232,6 +233,12 @@ a.mean() -> normalizes the output to be close to zero
  -> so basically we can weight the actions based on the type of state we are currently in
 
 IMPORTANT: only one output neural (the action choosen) is being updated at a time (in my case the batch of states action values)
+
+%################################################################################
+\section{Extension: Proximal Policy Optimization (PPO)}
+Building upon these value-based RL methods, we implemented PPO, a policy-based method to explore policy optimization as an alternative to value iteration. PPO's recent successful applications in similar highway driving tasks (Section \ref{sec: related-work}) suggest that it is a reasonable candidate for our implementation. By introducing PPO, we sought to leverage its capacity for stable policy updates and explore its potential for achieving more adaptive behavior in dynamic traffic scenarios.
+
+
 
 \section{Results (1 Page)}
 To evaluate the quantitative results, the tensorboard's results display how well the agent trains for the environment.
