@@ -118,6 +118,14 @@ However, while effective, these PPO-based solutions can be unnecessarily complex
 
 % Could add one more paragraph mentioning SAC, same as DDPG, they are both actor-critic deep RL. Different from PPO which may lack of adaptive, actor-critic deep RL encourage the agent to take diverse actions. (then some how we say therefore we try DDPG with continuous actions space to see if an adaptive agent perform better...?
 
+% Building upon these value-based RL methods, we also implemented a policy-based method to explore policy-based methods and broaden our solution’s scope. Different from value-based method, a policy-based method optimizes expected reward through gradient ascent, which provide .... Particularly, Proximal Policy Optimization (PPO) is selected to be implemented.
+
+% PPO's recent successful applications in similar highway driving tasks (Section \ref{sec: related-work}) suggest that it is a reasonable candidate for our implementation. By introducing PPO, we sought to leverage its capacity for stable policy updates and explore its potential for achieving more adaptive behavior in dynamic traffic scenarios.
+
+% Extension to solution
+% Policy-based method: Optimize expected reward through gradient ascent
+% Is implemented as an extension to value based solution, to explore policy-based methods and broaden our solution’s scope
+
 %--------------------------------------------------------------------------------------------------------------
 \subsubsection{Value-based methods}
 
@@ -135,14 +143,14 @@ While existing DQN provides a solid foundation, there remains significant room f
 % To address these challenges, we aim to implement Rainbow DQN, which integrates several advanced techniques, such as prioritized replay, dueling networks, and distributional RL, to build upon the strengths of DQN. This will enable the agent to achieve better performance and faster convergence, particularly in scenarios with dynamic and dense highway environments.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Method (2 Page)}
+% Method (2 Page)
 % A description of the method(s) used to solve your chosen problem, an explanation of how these methods work (in your own words), and an explanation of why you chose these specific methods.
 
 % Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices. This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
 
 % Students may show evidence of creativity in their algorithmic approach and analysis. Students should demonstrate a deep understanding of their chosen method(s), as well as possible alternative approaches. (70\%)
 
-\subsection{Deep Q-Learning Network (DQN)}
+\section{Deep Q-Learning Network (DQN)}
 
 DQN used to solve your problem and how they work, and why I chose you it.
 
@@ -244,16 +252,17 @@ Furthermore, only one output neural (the action chosen) is being updated at a ti
 
 %################################################################################
 \section{Proximal Policy Optimization (PPO)}
-Building upon these value-based RL methods, we implemented PPO, a policy-based method to explore policy optimization as an alternative to value iteration. 
-PPO's recent successful applications in similar highway driving tasks (Section\ref{sec: related-work}) suggest that it is a reasonable candidate for our implementation. 
-By introducing PPO, we sought to leverage its capacity for stable policy updates and explore its potential for achieving more adaptive behavior in dynamic traffic scenarios.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Method (2 Page)
+% A description of the method(s) used to solve your chosen problem, an explanation of how these methods work (in your own words), and an explanation of why you chose these specific methods.
 
+% Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices. This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
 
+% Students may show evidence of creativity in their algorithmic approach and analysis. Students should demonstrate a deep understanding of their chosen method(s), as well as possible alternative approaches. (70\%)
 
-%################################################################################
-\section{Extension: Proximal Policy Optimization (PPO)}
-Building upon these value-based RL methods, we implemented PPO, a policy-based method to explore policy optimization as an alternative to value iteration. PPO's recent successful applications in similar highway driving tasks (Section \ref{sec: related-work}) suggest that it is a reasonable candidate for our implementation. By introducing PPO, we sought to leverage its capacity for stable policy updates and explore its potential for achieving more adaptive behavior in dynamic traffic scenarios.
+Actor-Critic RL approaches is implemented in for PPO \cite{konda_actor-critic_1999}. This includes two networks, where \texttt{critic} learns to approximate the state value function, and \texttt{actor} accordingly maps from states to actions. For 
+
 
 
 
