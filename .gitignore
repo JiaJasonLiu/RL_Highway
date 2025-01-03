@@ -15,3 +15,15 @@
 /Code/Agents/PPO/CnnPolicy_save_models
 /Code/Agents/PPO/training_results
 /Code/Agents/PPO/MlpPolicy_save_models
+Report/rl_project.aux
+Report/rl_project.blg
+Report/rl_project.fdb_latexmk
+Report/rl_project.pdf
+Report/rl_project.out
+Report/rl_project.log
+Report/rl_project.fls
+Report/rl_project.pdf
+Report/rl_project.synctex.gz
+Code/Agents/ValueIteration/q_table_2.json
+Code/Agents/ValueIteration/q_table_1.json
+Code/Agents/ValueIteration/q_table.json

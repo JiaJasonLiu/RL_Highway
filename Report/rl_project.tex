@@ -115,37 +115,48 @@ However, while effective, these PPO-based solutions can be unnecessarily complex
 %--------------------------------------------------------------------------------------------------------------
 \subsubsection{Value-based methods}
 
-Value-based methods, specifically Deep Q-Networks (DQN), are the primary solution for highway driving tasks. DQN estimates the action-value function (Q-values) to determine the optimal action for the agent at each state, making it particularly well-suited for environments with discrete action spaces.
+Value-based methods, specifically Deep Q-Networks (DQN), are the primary solution for highway driving tasks. 
+DQN estimates the action-value function (Q-values) to determine the optimal action for the agent at each state, making it particularly well-suited for environments with discrete action spaces.
 
-A significant strength of DQN lies in its ability to handle complex decision-making through the use of attention mechanisms. For instance, \citep{leurent_social_2019} and \citep{bellotti_designing_2023} introduced techniques that prioritize vehicles most likely to influence the agent’s decisions.  
+A significant strength of DQN lies in its ability to handle complex decision-making through the use of attention mechanisms (replay memory) and neural networks.
+For instance, \citep{leurent_social_2019} and \citep{bellotti_designing_2023} introduced techniques that prioritize vehicles most likely to influence the agent’s decisions.  
+Moreover, with the use of a q neural network instead of a q table (fixed size) DQN is able to generalize states that it has previously seen onto unknown states and provide a suitable action for the state.
 
-At the same time, DQN maintains a high degree of interpretability, which is crucial for understanding and analyzing the agent's behavior. \citep{bellotti_explaining_2023} employed SHapley Additive exPlanations (SHAP) to quantify the importance of environmental factors (such as vehicle speed, position, and distance) that influence specific decisions. Furthermore, \citep{bellotti_designing_2023} provided multiple visualization views for SHAP values. These tools enable a detailed analysis of the agent’s decision-making process across varying traffic conditions and timeframes.
+Compared to Value iteration where we need a q table to store the states and the value of each action, DQN is more efficient and scalable.
+Talk about Value Iteration here and how even though it can be implemented, it requires various tweakings to the environment.
+
+At the same time, DQN maintains a high degree of interoperability, which is crucial for understanding and analyzing the agent's behavior. 
+\citep{bellotti_explaining_2023} employed SHapley Additive exPlanations (SHAP) to quantify the importance of environmental factors (such as vehicle speed, position, and distance) that influence specific decisions. 
+Furthermore, \citep{bellotti_designing_2023} provided multiple visualization views for SHAP values. 
+These tools enable a detailed analysis of the agent’s decision-making process across varying traffic conditions and timeframes.
 
 While existing DQN provides a solid foundation, there remains significant room for improvement, particularly in enhancing learning efficiency and performance stability. 
 
 % In "method" make connection to this part, explaining why DQN and rainbow DQN are implemented.
 
-
-% To address these challenges, we aim to implement Rainbow DQN, which integrates several advanced techniques, such as prioritized replay, dueling networks, and distributional RL, to build upon the strengths of DQN. This will enable the agent to achieve better performance and faster convergence, particularly in scenarios with dynamic and dense highway environments.
+This is where Rainbow DQN comes into play where~\cite{hessel_rainbow_2017} described extensions to the base DQN enabling the agent to achieve better performance and faster convergence, particularly in scenarios with dynamic and dense highway environments.
+Nonetheless, the paper showed that by implementing the various extension of Rainbow, the DQN can perform better than the average human at some tasks.
+Therefore, Rainbow DQN was implement to solve the highway environment.
+This will be further explain in Section where rainbow DQN is located at.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Method (2 Page)}
-A description of the method(s) used to solve your chosen problem, an explanation of how these methods work (in your own words), and an explanation of why you chose these specific methods.
+\section{Methods}
+The methods used to solve the highway environment to producing an agent that can traverse through cars as fast and safe as possible
 
-Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices. This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
+% methods work (in your own words)
+% why these specific methods were chosen.
 
-Students may show evidence of creativity in their algorithmic approach and analysis. Students should demonstrate a deep understanding of their chosen method(s), as well as possible alternative approaches. (70\%)
+% Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices.
+%  This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
 
+% show evidence of creativity in their algorithmic approach and analysis.
+% Demonstrate deep understanding of DQN and possible alternative approaches. 
 
+\subsection{Value Iteration}
 \subsection{Deep Q-Learning Network (DQN)}
 
 DQN used to solve your problem and how they work, and why I chose you it.
 
-Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices. 
-This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
-
-show evidence of creativity in their algorithmic approach and analysis.
-Demonstrate deep understanding of DQN and possible alternative approaches. 
 
 DQN is a value based deep reinforcement learning algorithm that combines Q-Learning with deep neural networks to solve our environment as the state space contains too many features that make it hard to handle using a tabular method.
 Therefore a neural network generates an output of the estimated Q-values of all possible actions given the state.
@@ -185,8 +196,9 @@ As Google Colab can't render the environment for displaying purposes, saving and
 As the rendering of the model is done locally, loading of the model was done locally and the videos were recorded.
 I could also import a package to automatically record a video of the render, but do time and priorities, it wasn't achieved,
 
-\section{Extension: Rainbow DQN}
-Rainbow DQN refers to various extensions that are done to the basic DQN to improve the accuracy and the efficiency of the agent to reach the most optimal policy as fast as possible.
+\subsection{Rainbow DQN}
+Rainbow DQN refers to various extensions on top of the basic DQN to improve the accuracy, speed,  and efficiency of the agent to reach the most optimal policy~\cite{hessel_rainbow_2017}.
+The extensions N-Steps, Double, Noisy Network, Prioritized Experience Replay (PER) and Dueling Network were implemented.
 
 \subsection{N-Steps}
 N-steps is an extension to the Bellman update from the Replay Memory.
@@ -212,38 +224,49 @@ Factorized is used to decrease the sample amount and also ensuring non-negative 
 PER is an improvement to the Memory Replay to storing and sampling memories based on there importance, or how much loss they generate.
 Instead of randomly sampling experiences, PER is used to sample a proportion of the states.
 
-This uses a Sum Segment Tree from OpenAI Baseline to store the indexes of the memories and their corresponding priorities to be retrieved later.
-You then get the average of the priorities in the tree and uses it to get the index with the highest priority.
-Then using these indexes to return there states and weights to how much should the loss be punished to be updated.
+PER is a new Memory Replay for storing and sampling memories based on there importance, which how much loss they generate.~\cite{schaul_prioritized_2016}.
+Instead of randomly sampling experiences, PER is used to sample a proportion of the states based on how much it influences the agent.
+The storage uses a Sum Segment Tree to store the indexes of the memories and their corresponding priorities to be retrieved as the leafs and the parent nodes as the sums.
+The leafs are stored as (2 * capacity) + index and then propagate upwards to update the sum all stored in an array.
+Then the average sum of the priorities in the tree is used to get the index with the highest priority.
+These indexes retrieve the transitions and its equivalent weights to how much should the loss be punished to be updated.
+This utilizes importance sampling \((1/N * 1/P(i))^{\beta}\) to compensate for when beta is 1 for non-uniform probabilities.
+The retrieval of the elements are based on dividing the index by two to get the sum of it.
 
-\subsection{Dueling}
-This requires a new neural network
+Prioritized replay introduces bias because it changes this
+distribution in an uncontrolled fashion, and therefore changes the solution that the estimates will
+converge to (even if the policy and state distribution are fixed). 
 
-There are two
-- Looks at the advantage of the action compared to the other actions and mean of all q-values (the estimate of V(s))
-The state value (V) and the advantage value (A) are then aggregated layer into estimate state-action value Q.
-Display the equation of it
-Benefits:
-- during training: because we are using the TD (temporal difference) error
-- by separating them we can update the state value function and also the advantage -> to reordering the best actions
-a.mean() -> normalizes the output to be close to zero
+Correct bias using importance-sampling (IS) 
+hat fully compensates for the non-uniform probabilities \(P(i) if \beta = 1\). 
+% These weights can be folded into the Q-learning update by using w_i * δ_i instead of δ_i (this is thus weighted IS, not ordinary IS, see e.g. Mahmood et al., 2014).
 
-- this architecture is able to learn how valuable the state is without considering the actions needed to take
- -> so basically we can weight the actions based on the type of state we are currently in
-
-IMPORTANT: only one output neural (the action choosen) is being updated at a time (in my case the batch of states action values)
+Dueling Network consists of 2 additional layers that separate the estimation of the state value and the action advantage function~\cite{wang_dueling_2016}.
+The action advantage function is the difference between the Q-values for a state.
+The state value (V) and the advantage value (A) are then aggregated layer to learn the Q value of the state without considering its actions, and weighting how important it truly is.
+I take the mean of the advantage layer to normalize the output so V(s) doesn't contain information about the action values.
+The benefits during training is that because it uses the TD error, it separates updating the state value function and action advantage function to reordering the best actions.
+Furthermore, only one output neural (the action chosen) is being updated at a time, so the separation leads to more stable learning and generalizability across different states and actions.
 
 %################################################################################
-\section{Extension: Proximal Policy Optimization (PPO)}
-Building upon these value-based RL methods, we implemented PPO, a policy-based method to explore policy optimization as an alternative to value iteration. 
-PPO's recent successful applications in similar highway driving tasks (Section\ref{sec: related-work}) suggest that it is a reasonable candidate for our implementation. 
-By introducing PPO, we sought to leverage its capacity for stable policy updates and explore its potential for achieving more adaptive behavior in dynamic traffic scenarios.
+\subsection{Proximal Policy Optimization (PPO)}
+
+
+\subsubsection{Policy Network}
+Actor-Critic RL approaches are implemented in PPO \cite{konda_actor-critic_1999}. Two networks are trained concurrently: \texttt{Critic} learns to approximate the state value function; \texttt{Actor} accordingly maps from states to actions. The structures of two networks are different for different observations ( CNN policy and MLP policy). For MLP, both \texttt{critic} and \texttt{actor} are constructed with 3 fully connected layers. For CNN, the observation is first pass by a shared convolutional neural network to extract the feature of the image, and then passed to \texttt{critic} or \texttt{actor} where each is structured as a 1 full-connected layer. The structure of the shared convolutional neural network is the same as it was in DQN, as it has been adjust to have the best performance in understanding the CNN input. 
+
+Hyperbolic Tangent (Tanh) was selected as the activation function after all layers in both policies. It normalize the outputs between $-1$ and $1$, which allows the network to have a more stable learning process and faster convergence. Also, layers are initiated  with orthogonal matrices for a stable gradient flow. Where the gain of that in \texttt{actor} is $0.01$ for ..., and $1$ in \texttt{critic} for ...
+
+% PPO pseudocode
+\subsubsection{Training}
+Overall, the training process for PPO follows an iterative approach\cite{schulman_proximal_2017}. In each iteration, the current policy interacts with the environment to collect data over a fixed number of steps. Using these data, generalized advantage estimates are computed and used to optimize a surrogate loss function over multiple epochs. Minibatches was implemented for stable and efficient updates. After each update, the new policy replaces the old one and the process repeats for subsequent iterations. 
 
 
 
 
+\subsection{Alternative Methods}
 
-\section{Results (1 Page)}
+\section{Results (1 Page)} 
 To evaluate the quantitative results, the tensorboard's results display how well the agent trains for the environment.
 
 Display the different Extension of the Rainbow as well as MLP and CNN.
