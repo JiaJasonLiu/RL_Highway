@@ -251,6 +251,11 @@ Furthermore, only one output neural (the action chosen) is being updated at a ti
 %################################################################################
 \subsection{Proximal Policy Optimization (PPO)}
 
+% A description of the method(s) used to solve your chosen problem, an explanation of how these methods work (in your own words), and an explanation of why you chose these specific methods.
+
+% Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices. This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
+
+% Students may show evidence of creativity in their algorithmic approach and analysis. Students should demonstrate a deep understanding of their chosen method(s), as well as possible alternative approaches. (70\%)
 
 \subsubsection{Policy Network}
 Actor-Critic RL approaches are implemented in PPO \cite{konda_actor-critic_1999}. Two networks are trained concurrently: \texttt{Critic} learns to approximate the state value function; \texttt{Actor} accordingly maps from states to actions. The structures of two networks are different for different observations ( CNN policy and MLP policy). For MLP, both \texttt{critic} and \texttt{actor} are constructed with 3 fully connected layers. For CNN, the observation is first pass by a shared convolutional neural network to extract the feature of the image, and then passed to \texttt{critic} or \texttt{actor} where each is structured as a 1 full-connected layer. The structure of the shared convolutional neural network is the same as it was in DQN, as it has been adjust to have the best performance in understanding the CNN input. 
