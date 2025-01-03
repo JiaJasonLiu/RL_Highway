@@ -65,30 +65,39 @@
 
 % should be no longer than seven pages including figures but excluding references and appendices.
 
-\section{Problem Definition (1 Page)}
-A clear, precise and concise description of your chosen problem, including the states, actions, transition dynamics, and the reward function. You will lose marks for an unclear, incorrect, or incomplete problem definition. You should also discuss
-the difficulty of your chosen problem and justify why it cannot be solved effectively using tabular reinforcement learning methods.
+\section{Problem Definition}
+% A clear, precise and concise description of your chosen problem, including the states, actions, transition dynamics, and the reward function. You will lose marks for an unclear, incorrect, or incomplete problem definition. You should also discuss the difficulty of your chosen problem and justify why it cannot be solved effectively using tabular reinforcement learning methods.
 
 
 The Problem Definition we are evaluating is of a highway, where are car is driving and has the goal of driving as fast as possible for a set amount of time (10 seconds for now) without crashing to other cars. This is a continuous problem because the car positions on the highway will be random and will follow some rules of the highway, such as giving way. So, it will require non-tabular reinforcement learning methods to efficiently learn from the most optimal method to traverse this highway environment.
 
-\subsection{States}
-The states will be different combinations of the 4 lanes of the highway and the random number of cars per lane. Not including the agent car, the amount of cars per lane should be at most 2.
+\begin{description}
+\item[States]The states will be different combinations of the 4 lanes of the highway and the random number of cars per lane. Not including the agent car, the amount of cars per lane should be at most 2.
 
-\subsection{Actions}
-The actions for any car on the highway environment is to stay in the same lane (idle), move left or right. Furthermore, continuous actions can be applied using kinematics where the speed of going left and right and the distance will also be taken into consideration when training the agent using non-tabular methods.
+\item[Actions]The actions for any car on the highway environment is to stay in the same lane (idle), move left or right. Furthermore, continuous actions can be applied using kinematics where the speed of going left and right and the distance will also be taken into consideration when training the agent using non-tabular methods.
 
-\subsection{Transition dynamics}
-The transition dynamics of the agent will be the probabilities of going to each of the lanes next to the agent, as well as staying in the same lane. Furthermore, their is also the probability of the agent to crash for each lane the agent is on.
+\item[Transition dynamics]The transition dynamics of the agent will be the probabilities of going to each of the lanes next to the agent, as well as staying in the same lane. Furthermore, their is also the probability of the agent to crash for each lane the agent is on.
 
-\subsection{Reward function}
-As the goal of the agent is to be as fast as possible, the reward function will be negative rewards when the car crashes. However, the negative rewards need to be balanced so the agent isn't scared of going too fast because it is afraid of crashing. Moreover, the agent will be intrinsically motivated to get ahead as possible in the time it is given.
+\item[Reward function]As the goal of the agent is to be as fast as possible, the reward function will be negative rewards when the car crashes. However, the negative rewards need to be balanced so the agent isn't scared of going too fast because it is afraid of crashing. Moreover, the agent will be intrinsically motivated to get ahead as possible in the time it is given.
+\end{description}
+
+% \subsection{States}
+% The states will be different combinations of the 4 lanes of the highway and the random number of cars per lane. Not including the agent car, the amount of cars per lane should be at most 2.
+
+% \subsection{Actions}
+% The actions for any car on the highway environment is to stay in the same lane (idle), move left or right. Furthermore, continuous actions can be applied using kinematics where the speed of going left and right and the distance will also be taken into consideration when training the agent using non-tabular methods.
+
+% \subsection{Transition dynamics}
+% The transition dynamics of the agent will be the probabilities of going to each of the lanes next to the agent, as well as staying in the same lane. Furthermore, their is also the probability of the agent to crash for each lane the agent is on.
+
+% \subsection{Reward function}
+% As the goal of the agent is to be as fast as possible, the reward function will be negative rewards when the car crashes. However, the negative rewards need to be balanced so the agent isn't scared of going too fast because it is afraid of crashing. Moreover, the agent will be intrinsically motivated to get ahead as possible in the time it is given.
 
 \subsection{Difficulty and challenges}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Background (< 1 Page)}
+\section{Background}
 % A discussion of reinforcement learning methods that may be effective at solving your chosen problem, their strengths and weaknesses for your chosen problem, and any existing results in the scientific literature (or publicly available online) on your chosen problem or similar problems.
 
 \subsection{Existing Literature and Results}
@@ -127,12 +136,11 @@ While existing DQN provides a solid foundation, there remains significant room f
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Method (2 Page)}
-A description of the method(s) used to solve your chosen problem, an explanation of how these methods work (in your own words), and an explanation of why you chose these specific methods.
+% A description of the method(s) used to solve your chosen problem, an explanation of how these methods work (in your own words), and an explanation of why you chose these specific methods.
 
-Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices. This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
+% Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices. This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
 
-Students may show evidence of creativity in their algorithmic approach and analysis. Students should demonstrate a deep understanding of their chosen method(s), as well as possible alternative approaches. (70\%)
-
+% Students may show evidence of creativity in their algorithmic approach and analysis. Students should demonstrate a deep understanding of their chosen method(s), as well as possible alternative approaches. (70\%)
 
 \subsection{Deep Q-Learning Network (DQN)}
 
