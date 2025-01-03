@@ -20,6 +20,10 @@
 \usepackage{microtype}      % microtypography
 \usepackage{graphicx}
 
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
 \title{Mastering the Highway using Rainbow DQN and PPO}
 
 
@@ -261,9 +265,21 @@ Furthermore, only one output neural (the action chosen) is being updated at a ti
 
 % Students may show evidence of creativity in their algorithmic approach and analysis. Students should demonstrate a deep understanding of their chosen method(s), as well as possible alternative approaches. (70\%)
 
-Actor-Critic RL approaches is implemented in for PPO \cite{konda_actor-critic_1999}. This includes two networks, where \texttt{critic} learns to approximate the state value function, and \texttt{actor} accordingly maps from states to actions. For 
+\subsection{Policy Network}
+Actor-Critic RL approaches are implemented in PPO \cite{konda_actor-critic_1999}. Two networks are trained concurrently: \texttt{Critic} learns to approximate the state value function; \texttt{Actor} accordingly maps from states to actions. The structures of two networks are different for different observations ( CNN policy and MLP policy). For MLP, both \texttt{critic} and \texttt{actor} are constructed with 3 fully connected layers. For CNN, the observation is first pass by a shared convolutional neural network to extract the feature of the image, and then passed to \texttt{critic} or \texttt{actor} where each is structured as a 1 full-connected layer. The structure of the shared convolutional neural network is the same as it was in DQN, as it has been adjust to have the best performance in understanding the CNN input. 
 
+Hyperbolic Tangent (Tanh) was selected as the activation function after all layers in both policies. It normalize the outputs between $-1$ and $1$, which allows the network to have a more stable learning process and faster convergence. Also, layers are initiated  with orthogonal matrices for a stable gradient flow. Where the gain of that in \texttt{actor} is $0.01$ for ..., and $1$ in \texttt{critic} for ...
 
+% PPO pseudocode
+\subsection{Training}
+Overall, the training process for PPO follows an iterative approach\cite{schulman_proximal_2017}. In each iteration, the current policy interacts with the environment to collect data over a fixed number of steps. Using these data, generalized advantage estimates are computed and used to optimize a surrogate loss function over multiple epochs. Minibatches was implemented for stable and efficient updates. After each update, the new policy replaces the old one and the process repeats for subsequent iterations. 
+
+To collect data, a class \texttt{train\_data} is used to record all necessary data for each step, including state, the chosen action, value of the state, reward, log of probability, and whether the episode end.
+
+\subsubsection{Generalized Advantage Estimation (GAE)}
+Similar top Dueling Network in DQN, the advantage function is used to measure how much better or worse an action is compared to value of state, and it is generalized and normalized to balance bias and variance. Since policy are updated with minibatch, there exist situations that epoch ends with a non-terminal state of an episode. In this situation, the value of the last state is estimated using the value network.
+
+\subsubsection{Update Policy}
 
 
 \section{Results (1 Page)}
