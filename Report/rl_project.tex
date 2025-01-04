@@ -147,69 +147,84 @@ While existing DQN provides a solid foundation, there remains significant room f
 % To address these challenges, we aim to implement Rainbow DQN, which integrates several advanced techniques, such as prioritized replay, dueling networks, and distributional RL, to build upon the strengths of DQN. This will enable the agent to achieve better performance and faster convergence, particularly in scenarios with dynamic and dense highway environments.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Method (2 Page)
+\section{Method (2 Page)}
 % A description of the method(s) used to solve your chosen problem, an explanation of how these methods work (in your own words), and an explanation of why you chose these specific methods.
 
 % Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices. This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
 
 % Students may show evidence of creativity in their algorithmic approach and analysis. Students should demonstrate a deep understanding of their chosen method(s), as well as possible alternative approaches. (70\%)
+Talk about saving and loading of the model
 
-\section{Deep Q-Learning Network (DQN)}
-
-DQN used to solve your problem and how they work, and why I chose you it.
-
-Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices. 
-This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
-
-show evidence of creativity in their algorithmic approach and analysis.
-Demonstrate deep understanding of DQN and possible alternative approaches. 
-
-DQN is a value based deep reinforcement learning algorithm that combines Q-Learning with deep neural networks to solve our environment as the state space contains too many features that make it hard to handle using a tabular method.
-Therefore a neural network generates an output of the estimated Q-values of all possible actions given the state.
-For the chosen problem, there are two types of states that exist are Kinematics and Grey Scale image.
-
-Kinematics refers to an array of nearby vehicles and their features. Some features are the \(x, y\) position of either the agent vehicle or other vehicles offset with the agent vehicle, \(x_{velocity}, y_{velocity}\) of the vehicles.
-% info can be found: https://highway-env.farama.org/observations/#kinematics
-A Multilayer perceptron (MLP) neural network will be used to take in this state and get the Q-values of the available actions.
-A MLP can learn the nonlinear relationships between data as it uses multiple layers of neurons with non-linear activation functions (RelU).
-Then using the Q-Values of the network we get the action with the highest Q-Value.
-However, as the output is vehicle order dependent, it might not be able to generalize the network towards vehicles in different orders.
-
-This is the reason for Grayscale Images, where we process the scenario of the environment with the road and the vehicles.
-This provides a more realistic and accurate representations of the state.
-Therefore, a Convolutional Neural Network (CNN) is used to process the grayscale image of the environment instead of getting the features of nearby vehicles.
-Moreover, the CNN can also take channels of the image normally represented as \(r,g,b\), however as we are using grayscale we can use a set number of previous frames as the channels for a broader representation of the state.
-Nonetheless, this will be computationally heavier as it will take more dimensions and more data than an array.
-
-Furthermore, the inputs for the networks are the states.
-DQN processes the states of the by first storing them into a memory replay circular buffer to be accessed after each time step.
-This is so that it can have a equal distribution of all the states that the agent has seen, so that it wouldn't forget any previously seen states.
-Nonetheless, the buffer still has a limit and so old states will be overwritten when new ones come in and the buffer is full.
-As the agent needs to learn at the start of the training, the agent will traverse through the environment an just store the state relevant information in there.
-
-As the agent learn from the memory replay it uses the Bellman equation on the target network versus the trained network for the best possible action against the action chosen and its discount value.
-Denote with the equation (not sure if it should be put)
-Then used the mean square error loss as the Huber Loss (maybe it should be L1 smooth loss) to get how far the best action is from the action chosen and update the q training network's parameters using gradient descent and backpropagation to output an action for similar states.
-Furthermore, to prevent exploding gradients I have clipped the gradients to \([-1,1]\)~\cite{mnih_human-level_2015} for more stable training.
-
-
-
-Epsilon-Greedy Policy:
-This uses epsilon decay to slowly decrease epsilon which decreases the amount of randomness that the actor performs.
-Instead of having a constant that goes down slowly regardless of the total amount of episodes defined where the epsilon might be big before ending the training.
-Linear annealing schedule was used to decrease the epsilon depending on the total amount of episodes.
-A float (0 to 1) will be assigned to decide if the actor should reach the minimum epsilon during 1 to 100\% of the training
-
-
-Furthermore, the following extensions for Rainbow DQN were implemented based on the results it showed during the evaluation of the model and the metrics.
 The metrics are stored using tensorboard to keep track of the average rewards, exploration rate (epsilon), episode length and the average loss of the episode.
 Moreover, due to the limitation of our personal computers, Google Colab was used to train the model.
 As Google Colab can't render the environment for displaying purposes, saving and loading the parameters and buffers of the neural networks.
 As the rendering of the model is done locally, loading of the model was done locally and the videos were recorded.
-I could also import a package to automatically record a video of the render, but do time and priorities, it wasn't achieved,
 
-\section{Rainbow DQN}
-Rainbow DQN refers to various extensions on top of the basic DQN to improve the accuracy, speed,  and efficiency of the agent to reach the most optimal policy~\cite{hessel_rainbow_2017}.
+
+\subsection{Q-Learning}
+
+Q -Learning is a type of reinforcement learning algorithm that guarantees to find an optimal policy in an environment if there is a finite number of states and actions. Incorporating action exploration allows us to investigate actions outside the policy to reach all possible states. 
+=======
+% Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices. This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
+
+% Students may show evidence of creativity in their algorithmic approach and analysis. Students should demonstrate a deep understanding of their chosen method(s), as well as possible alternative approaches. (70\%)
+
+
+\subsection{Deep Q-Learning Network (DQN)}
+
+% DQN used to solve your problem and how they work, and why I chose you it.
+
+% good understanding of their chosen method(s)
+% give reasonable justifications for their algorithmic choices. 
+% reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
+
+% show evidence of creativity in their algorithmic approach and analysis.
+% Demonstrate deep understanding of DQN and possible alternative approaches. 
+
+
+% What is DQN and why is it used to solve the problem
+DQN is a value-based deep reinforcement learning algorithm that combines Q-Learning with deep neural networks to solve complex environment, as the state space contains too many features that make it hard to handle using a tabular method.
+
+% how it works
+
+The use of a neural network takes the states and outputs the estimated Q-values of all possible actions given the state to providing the best action.
+
+% methods
+% the states in the environment
+
+
+For the chosen problem, kinematics and gray-scale images were the two different observation spaces utilized~\href{https://highway-env.farama.org/observations/}{link}.
+
+Kinematics observations are a 2D array of nearby vehicles and configurable features that describe the \(x, y\) position of the agent vehicle and other vehicles offset to the agent vehicle, \(x_{velocity}, y_{velocity}\) of the nearby vehicles.
+
+As the observational states are of fixed size, a Multilayer Perceptron (MLP) neural network will process it to get the Q-values of the available actions to get the best action.
+MLP's learn the nonlinear relationships between data as it uses multiple layers of neurons with non-linear activation functions (RelU) and is simple to implemented, making it ideal for the initial creation of DQN.
+However, it performed worse than CNN (link to the appendix).
+This might be due to the nearby vesicles being order dependent, making it less generalizable towards vehicles in different orders.
+
+Therefore, Convolutional Neural Networks (CNN) was implemented more realistic and accurate representations of the state using grayscale images as the state in the environment. (link to appendix where we have the gray-scaled image of the thing)
+Moreover, as the CNN normally takes channels/stacks of the image for \(r,g,b\), they were substituted with grayscale images of the 3 previous frames for more broader and accurate representation of the states.
+Nevertheless, this increases computation time as it takes more dimensions and data compared to a 2D array, but is worth it for better accuracies.
+
+There are two of the same network, training and target network with the same randomly initialized weights using the he initialization because of RelU.
+For network inputs, DQN utilizes a circular memory replay buffer, which stores and learns from past experiences of the agent traversing through the environment.
+This experience replay provides a equal distribution of all known states and reselect the best q-value actions for stable learning.
+In order to obtain diverse states for the experience replay, epsilon greedy policy is implemented using epsilon-decay to decrease  \(\epsilon = 1 \) to \(0.1\) for the probability of selecting a random action or one from the training q network.
+For epsilon decay, which is known to linearly decrease regardless of the total amount of episodes defined.
+Linear annealing schedule was used for the decay as it calculates when the epsilon should reach its minimum using the total time steps.
+For instance, for decay at .80, the agent will reach 0.1 at 80\% of training.
+
+Furthermore, the agent learns through experience replay when it gets a batch of transitions to compare q values of the actions taken in the states using the training network with the best actions in the state using the target network.
+The bellman equation then takes the The target network's q values to get the value of state based on the rewards of the action and the expected value of future states.
+The mean square error loss (Huber Loss) then computes how far action taken is from the best action to update the q training network's parameters using gradient descent and backpropagation to update it weights depending on the loss.
+Two networks are used because it is necessary for the training network to slowly improve its predictions on a fixed target network compared to chasing its own tail.
+Therefore, the target network is updated to be the same as the training network only a few times during training
+Furthermore, gradients were clipped to \([-1,1]\)~\cite{mnih_human-level_2015} for more stable training to prevent exploding gradients.
+
+
+\subsection{Rainbow DQN}
+
+Rainbow DQN refers to various extensions to overcome the shortcomings of DQN as it improves the accuracy, speed, and efficiency of the agent reaching the most optimal policy~\cite{hessel_rainbow_2017}.
 The extensions N-Steps, Double, Noisy Network, Prioritized Experience Replay (PER) and Dueling Network were implemented.
 
 N-steps is an extension to the Bellman update from the Replay Memory~\cite{garcia_understanding_2019}.
@@ -221,7 +236,7 @@ Therefore, it would continuously select the highest action value instead of gett
 Double DQN then takes the best actions from the trained network and uses it to get the probability (Q values) of that action in the target network loss to learn the best action in the state~\cite{hasselt_deep_2015}.
 This will stop the target value when overestimating the action values by separating the action selection and evaluation.
 
-The Noisy Network is a Network or a Layer that is used for explorations instead of epsilon-greedy policy which is predetermined decrease of randomly selecting actions which is suitable for simpler environments.
+The Noisy Network is a Network used for explorations instead of epsilon-greedy policy which is suitable for simpler environments. 
 This paper~\cite{fortunato_noisy_2019}, adds noise to the weights (sigma and mu) to the weights of a network for the network to slowly adapt to the noisy over a period of time resulting in more adaptive exploration.
 The intensity of the noise is the epsilon which is initialized in the beginning of the network and sampled using the Factorized Gaussian Distribution.
 Put the equation here:
@@ -232,20 +247,11 @@ Factorized is used to decrease the sample amount and also ensuring non-negative 
 
 PER is a new Memory Replay for storing and sampling memories based on there importance, which how much loss they generate.~\cite{schaul_prioritized_2016}.
 Instead of randomly sampling experiences, PER is used to sample a proportion of the states based on how much it influences the agent.
-The storage uses a Sum Segment Tree to store the indexes of the memories and their corresponding priorities to be retrieved as the leafs and the parent nodes as the sums.
-The leafs are stored as (2 * capacity) + index and then propagate upwards to update the sum all stored in an array.
+The storage uses a Sum Segment Tree to store the indexes of the memories and their corresponding priorities to be retrieved.
 Then the average sum of the priorities in the tree is used to get the index with the highest priority.
 These indexes retrieve the transitions and its equivalent weights to how much should the loss be punished to be updated.
 This utilizes importance sampling \((1/N * 1/P(i))^{\beta}\) to compensate for when beta is 1 for non-uniform probabilities.
-The retrieval of the elements are based on dividing the index by two to get the sum of it.
 
-Prioritized replay introduces bias because it changes this
-distribution in an uncontrolled fashion, and therefore changes the solution that the estimates will
-converge to (even if the policy and state distribution are fixed). 
-
-Correct bias using importance-sampling (IS) 
-hat fully compensates for the non-uniform probabilities \(P(i) if \beta = 1\). 
-% These weights can be folded into the Q-learning update by using w_i * δ_i instead of δ_i (this is thus weighted IS, not ordinary IS, see e.g. Mahmood et al., 2014).
 
 Dueling Network consists of 2 additional layers that separate the estimation of the state value and the action advantage function~\cite{wang_dueling_2016}.
 The action advantage function is the difference between the Q-values for a state.
