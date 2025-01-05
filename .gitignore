@@ -15,3 +15,5 @@
 /Code/Agents/PPO/CnnPolicy_save_models
 /Code/Agents/PPO/training_results
 /Code/Agents/PPO/MlpPolicy_save_models
+/Code/Agents/QLearning/training_results
+Code/Agents/QLearning/q_table.jsonn
