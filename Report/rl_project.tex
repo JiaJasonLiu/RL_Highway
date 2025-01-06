@@ -9,7 +9,9 @@
 
 % to avoid loading the natbib package, add option nonatbib:
 \usepackage[nonatbib]{rl_project}
-% \usepackage[numbers]{natbib}
+\usepackage[numbers]{natbib}
+% \usepackage[abbrvnat]{natbib}
+
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
 \usepackage{hyperref}       % hyperlinks
@@ -20,6 +22,7 @@
 \usepackage{microtype}      % microtypography
 \usepackage{graphicx}
 
+\usepackage{subcaption}
 \usepackage{amsmath}
 \usepackage{algorithm}
 \usepackage{algorithmic}
@@ -62,10 +65,18 @@
   Bath, BA2 7AY \\
   \texttt{lz2091@bath.ac.uk} \\
 }
+% \author{
+%   Jia Sheng Liu\textsuperscript{1*}, Le Lyu\textsuperscript{1*}, Zhe Yang\textsuperscript{1*}, Leonid Zhuravlev\textsuperscript{1*} \\
+%   \textsuperscript{1}Department of Computer Science, University of Bath, Bath, BA2 7AY \\
+%   \texttt{\{jsl86, ll2300, zy756, lz2091\}@bath.ac.uk}
+% }
+
 
 \begin{document}
 
 \maketitle
+
+\vspace*{-22pt}
 
 % should be no longer than seven pages including figures but excluding references and appendices.
 
@@ -73,284 +84,724 @@
 % A clear, precise and concise description of your chosen problem, including the states, actions, transition dynamics, and the reward function. You will lose marks for an unclear, incorrect, or incomplete problem definition. You should also discuss the difficulty of your chosen problem and justify why it cannot be solved effectively using tabular reinforcement learning methods.
 
 
-The Problem Definition we are evaluating is of a highway, where are car is driving and has the goal of driving as fast as possible for a set amount of time (10 seconds for now) without crashing to other cars. This is a continuous problem because the car positions on the highway will be random and will follow some rules of the highway, such as giving way. So, it will require non-tabular reinforcement learning methods to efficiently learn from the most optimal method to traverse this highway environment.
+% The Problem Definition we are evaluating is of a highway, where are car is driving and has the goal of driving as fast as possible for a set amount of time (10 seconds for now) without crashing to other cars. This is a continuous problem because the car positions on the highway will be random and will follow some rules of the highway, such as giving way. So, it will require non-tabular reinforcement learning methods to efficiently learn from the most optimal method to traverse this highway environment.
 
-\begin{description}
-\item[States]The states will be different combinations of the 4 lanes of the highway and the random number of cars per lane. Not including the agent car, the amount of cars per lane should be at most 2.
+The project explores reinforcement learning algorithms to solve the problem of autonomous cars switching lanes and driving as fast as possible without crashing in a highway environment. The agent is rewarded for speed, avoiding collisions, and driving on the right side. The environment is an abstracted version of the real-world issue of autonomous car driving in simple scenarios such as highways. We investigated different algorithms to solve the highway environment.
 
-\item[Actions]The actions for any car on the highway environment is to stay in the same lane (idle), move left or right. Furthermore, continuous actions can be applied using kinematics where the speed of going left and right and the distance will also be taken into consideration when training the agent using non-tabular methods.
 
-\item[Transition dynamics]The transition dynamics of the agent will be the probabilities of going to each of the lanes next to the agent, as well as staying in the same lane. Furthermore, their is also the probability of the agent to crash for each lane the agent is on.
+\textbf{Kinematics} - is an observation space $\Omega $ is represented by $\textbf{O} \in \mathbb{R}^{V \times F}$, where  \textbf{V} x \textbf{F} is an array that describes a list of \textbf{V} nearby vehicles by a set of features of size \textbf{F}.
+Each feature is characterised by an array of the $|f| = 7 $ , where $f \in F $ and described in Figure \ref{appendix:kinematics observation} \cite{leurent_social_2019}
 
-\item[Reward function]As the goal of the agent is to be as fast as possible, the reward function will be negative rewards when the car crashes. However, the negative rewards need to be balanced so the agent isn't scared of going too fast because it is afraid of crashing. Moreover, the agent will be intrinsically motivated to get ahead as possible in the time it is given.
-\end{description}
 
-% \subsection{States}
-% The states will be different combinations of the 4 lanes of the highway and the random number of cars per lane. Not including the agent car, the amount of cars per lane should be at most 2.
+\textbf{Time-To-Completion} - is an observation space $\Omega$ represented by $\textbf{O} \in \mathbb{R}^{V \times L \times H}$, where $\textbf{V}$ is a set of predictions of different values of the ego-vehicle speed, $\textbf{L}$ number lanes on the road around the current lane, and $\textbf{H}$ are discretised time values, with 1s steps.
 
-% \subsection{Actions}
-% The actions for any car on the highway environment is to stay in the same lane (idle), move left or right. Furthermore, continuous actions can be applied using kinematics where the speed of going left and right and the distance will also be taken into consideration when training the agent using non-tabular methods.
 
-% \subsection{Transition dynamics}
-% The transition dynamics of the agent will be the probabilities of going to each of the lanes next to the agent, as well as staying in the same lane. Furthermore, their is also the probability of the agent to crash for each lane the agent is on.
+\textbf{Grayscale} - is an observation state represented by a grayscale image, shown in Appendix~\ref{appendix:grayscale-observation}. The RGB to grayscale conversion is a weighted sum. Several images can be stacked, as is customary with image observations.
 
-% \subsection{Reward function}
-% As the goal of the agent is to be as fast as possible, the reward function will be negative rewards when the car crashes. However, the negative rewards need to be balanced so the agent isn't scared of going too fast because it is afraid of crashing. Moreover, the agent will be intrinsically motivated to get ahead as possible in the time it is given.
+% \item[Action Space]
+The action space consists of 5 actions:
+$0 \leftarrow$ Switch to left lane, $1 \leftarrow$ Stay in current Lane, $2 \leftarrow$ Switch to right lane, $3 \leftarrow$ Increase Velocity, $4 \leftarrow$ Decrease velocity. 
 
-\subsection{Difficulty and challenges}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \item[Transition dynamics]
+The agent's transition dynamic is deterministic. The terminal states are 30 steps long, with only an idle action chosen and a collision between the ego vehicle and the environment vehicle.
+
+
+% \item[Reward function]As the agent's goal is to be as fast as possible, the reward function will be negative rewards when the car crashes. However, the negative rewards need to be balanced so the agent isn't scared of going too fast because it is afraid of crashing. Moreover, the agent will be intrinsically motivated to get ahead as possible in the time it is given.
+
+
+At each time step, the agent receives a reward $R(s, a)$, which is a weighted sum of two components: a collision penalty ($R_{\text{col}}$) and a speed-based reward ($R_{\text{speed}}$).
+
+The reward function is often composed of a velocity term and a collision term:
+\vspace*{-7pt}
+    $$R(s, a) = a \frac{v - v_{\min}}{v_{\max} - v_{\min}} - b \cdot \text{collision}$$
+\vspace*{-9pt}
+
+where $v$, $v_{\min}$, $v_{\max}$ are the current, minimum, and maximum speed of the ego-vehicle, respectively, and $a$, $b$ are two coefficients.
+The rewards are normalized within a range [0,1], as per standard convention, with research showing it to be practically beneficial in deep reinforcement learning~\cite{mnih_human-level_2015}. 
+Negative rewards are not utilized to reduce the agent's probability of favouring early episode termination through collisions instead of pursuing a challenging policy.
 
 \section{Background}
 % A discussion of reinforcement learning methods that may be effective at solving your chosen problem, their strengths and weaknesses for your chosen problem, and any existing results in the scientific literature (or publicly available online) on your chosen problem or similar problems.
 
-\subsection{Existing Literature and Results}
-Several reinforcement learning (RL) solutions have been implemented for highway driving tasks. In general, they can be divided into two main classifications: policy-based methods, which optimize the reward via gradient ascent \citep{sutton_policy_1999}, and value-based methods, which select the next action based on the cumulative benefit of each action. %might need one more citation here
+% Q-learning
+% Q-learning was first investigated as a fundamental and straightforward approach to exploring the problem. It provides a foundation for understanding the dynamics of the problem and evaluating the effectiveness of simple value-based solutions. 
 
-\subsubsection{Policy-Based Methods}
-\label{sec: related-work}
-Policy-based methods, particularly those utilizing Proximal Policy Optimization (PPO), have emerged as a dominant solution due to their effectiveness in handling a wide range of challenging tasks and their simplicity in implementation and tuning \citep{schulman_proximal_2017}. 
-
-A key advantage of PPO-based methods is their ability to integrate high-level decision making. For example, \citep{forneris_implementing_2023} used a customized reward function to penalize risky actions and generate different driving styles, including behaviors such as “keep lane,” “overtake,” and “move to the rightmost lane.” 
-
-To simplify decision-making and make solutions more interpretable, these solutions often adopt a hierarchical architecture that separates the Decision Maker (DM) and the Behavior Executor (BE) \citep{pighetti_high-level_2022}, \citep{forneris_implementing_2023}, \citep{capello_investigating_2023}.
-The Decision Maker focuses on selecting high-level strategic actions, such as “keep lane” or “overtake,” while the Behavior Executor translates these decisions into low-level actions controls. Hence, simplifies decision making and allows modularity.
-
-However, while effective, these PPO-based solutions can be unnecessarily complex for simpler highway environments with discrete action spaces, such as the one in our chosen problem. Their performance often heavily relies on the definition of policies, which may limit adaptability. For example, the stabilizing decisions in \citep{pighetti_high-level_2022} may restrict the agent's ability to respond dynamically to changing traffic conditions. Similarly, fixed driving styles (e.g., “aggressive” or “comfort”) implemented in \citep{forneris_implementing_2023}, while realistic, may not align with our goal of developing an adaptive agent.
-
-% Therefore we started from Monte Carlo and Value Iteration to find how agent perform with relatively simpler RL methods (?
-
-% Could add one more paragraph mentioning SAC, same as DDPG, they are both actor-critic deep RL. Different from PPO which may lack of adaptive, actor-critic deep RL encourage the agent to take diverse actions. (then some how we say therefore we try DDPG with continuous actions space to see if an adaptive agent perform better...?
-
-% Building upon these value-based RL methods, we also implemented a policy-based method to explore policy-based methods and broaden our solution’s scope. Different from value-based method, a policy-based method optimizes expected reward through gradient ascent, which provide .... Particularly, Proximal Policy Optimization (PPO) is selected to be implemented.
-
-% PPO's recent successful applications in similar highway driving tasks (Section \ref{sec: related-work}) suggest that it is a reasonable candidate for our implementation. By introducing PPO, we sought to leverage its capacity for stable policy updates and explore its potential for achieving more adaptive behavior in dynamic traffic scenarios.
-
-% Extension to solution
-% Policy-based method: Optimize expected reward through gradient ascent
-% Is implemented as an extension to value based solution, to explore policy-based methods and broaden our solution’s scope
-
-%--------------------------------------------------------------------------------------------------------------
-\subsubsection{Value-based methods}
-
-Value-based methods, specifically Deep Q-Networks (DQN), are the primary solution for highway driving tasks. DQN estimates the action-value function (Q-values) to determine the optimal action for the agent at each state, making it particularly well-suited for environments with discrete action spaces.
-
-A significant strength of DQN lies in its ability to handle complex decision-making through the use of attention mechanisms. For instance, \citep{leurent_social_2019} and \citep{bellotti_designing_2023} introduced techniques that prioritize vehicles most likely to influence the agent’s decisions.  
-
-At the same time, DQN maintains a high degree of interpretability, which is crucial for understanding and analyzing the agent's behavior. \citep{bellotti_explaining_2023} employed SHapley Additive exPlanations (SHAP) to quantify the importance of environmental factors (such as vehicle speed, position, and distance) that influence specific decisions. Furthermore, \citep{bellotti_designing_2023} provided multiple visualization views for SHAP values. These tools enable a detailed analysis of the agent’s decision-making process across varying traffic conditions and timeframes.
-
-While existing DQN provides a solid foundation, there remains significant room for improvement, particularly in enhancing learning efficiency and performance stability. 
-
-% In "method" make connection to this part, explaining why DQN and rainbow DQN are implemented.
+% DQN
+Q-learning provides a foundation for understanding the dynamics of the problem and evaluating the effectiveness of simple value-based solutions. However, it is inefficient for problems with high-dimensional action and state spaces, such as the one we defined. To address this limitation, Deep Q-learning Networks (DQN) were developed to improve performance by handling more complex decision-making and providing a deeper understanding of the problem.
 
 
-% To address these challenges, we aim to implement Rainbow DQN, which integrates several advanced techniques, such as prioritized replay, dueling networks, and distributional RL, to build upon the strengths of DQN. This will enable the agent to achieve better performance and faster convergence, particularly in scenarios with dynamic and dense highway environments.
+Previous studies have demonstrated the potential of DQN as a solution for highway environments. These works emphasize both performance and interpretability, introducing attention mechanisms to identify factors influencing decisions and improving the safety of autonomous driving \cite{leurent_social_2019, bellotti_explaining_2023, bellotti_designing_2023}.
+Building on this foundation, we implemented DQN as an advanced solution to Q-learning. To further enhance performance, we also extended this approach with Rainbow DQN to explore greater efficiency and robustness in this domain.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Method (2 Page)
+% PPO
+
+Recognizing that all previous methods were value-based, we extended our exploration to include policy-based methods to broaden the scope of our solutions. Compared to value-based methods, policy-based methods are often more stable, as they directly optimize the policy via function approximation.
+
+Proximal Policy Optimization (PPO), as an actor-critic method, concurrently predicts action policies and value functions. Its ability to balance stability and efficiency makes it a strong candidate for complementing and comparing against our value-based solutions \cite{schulman_proximal_2017}.
+In prior research on highway environments, PPO implementations have focused on high-level decision-making by customizing reward functions to penalize risky actions and generate distinct driving styles \citep{pighetti_high-level_2022, forneris_implementing_2023, capello_investigating_2023}.
+
+It has been suggested that the structure of the reward function plays a significant role in PPO's performance \cite{kozlica_deep_2023}. However, unlike previous works that heavily modified the reward function to achieve more realistic behaviour, we retain the default function. As an extension of our existing solutions, we opted to evaluate how the default reward influences PPO's behaviour and explore additional techniques to align the agent's learning with our training goals.  
+
+
+\section{Methods}
 % A description of the method(s) used to solve your chosen problem, an explanation of how these methods work (in your own words), and an explanation of why you chose these specific methods.
 
 % Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices. This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
 
 % Students may show evidence of creativity in their algorithmic approach and analysis. Students should demonstrate a deep understanding of their chosen method(s), as well as possible alternative approaches. (70\%)
 
-\section{Deep Q-Learning Network (DQN)}
+\subsection{Q-Learning}
 
-DQN used to solve your problem and how they work, and why I chose you it.
+Q-learning is a model-free, value-based reinforcement learning algorithm used to determine the optimal action-selection policy for an agent in a given environment. The algorithm estimates Q-values using Bellman's equations in Appendix~\ref{appendix:q_learning_details}. This ensures the Q-value of a state-action pair is updated based on the immediate reward and the estimated future rewards of the next state. These q-values are stored in a Q-table referencing the expected cumulative rewards for the actions in a given state. The agent iteratively converges these Q-values as it interacts with the environment to find the most optimal policy~\cite{watkins_technical_1992}.
 
-Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices. 
-This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
+To reach the most optimal policy, the agent adopts an epsilon-greedy policy to gather as many states of the environment as possible. It utilizes $\epsilon \leftarrow max(0.01, \epsilon \times 0.995)$ after a set amount of episodes to perform $\epsilon$ decay, with probability $\epsilon $, the agent explores by choosing a random action to balance exploration and exploitation.
 
-show evidence of creativity in their algorithmic approach and analysis.
-Demonstrate deep understanding of DQN and possible alternative approaches. 
+% Already here
+% To balance the discovery of new strategies and leverage known strategies (exploitation), the Q-Learning agent employs an \textbf{epsilon-greedy policy}. The agent employs formula $\epsilon \leftarrow max(0.01, \epsilon \times 0.995)$ after each episode to perform $\epsilon$ decay, with probability $\epsilon $, the agent explores by choosing a random action, and with $ 1-\epsilon$, it exploits by selects the action with the highest Q-value from the Q-table. 
+% As $\epsilon$ decays, the agent moves away from exploration to exploitation and perfection of learned policies.
 
-DQN is a value based deep reinforcement learning algorithm that combines Q-Learning with deep neural networks to solve our environment as the state space contains too many features that make it hard to handle using a tabular method.
-Therefore a neural network generates an output of the estimated Q-values of all possible actions given the state.
-For the chosen problem, there are two types of states that exist are Kinematics and Grey Scale image.
+% Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices. This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
 
-Kinematics refers to an array of nearby vehicles and their features. Some features are the \(x, y\) position of either the agent vehicle or other vehicles offset with the agent vehicle, \(x_{velocity}, y_{velocity}\) of the vehicles.
-% info can be found: https://highway-env.farama.org/observations/#kinematics
-A Multilayer perceptron (MLP) neural network will be used to take in this state and get the Q-values of the available actions.
-A MLP can learn the nonlinear relationships between data as it uses multiple layers of neurons with non-linear activation functions (RelU).
-Then using the Q-Values of the network we get the action with the highest Q-Value.
-However, as the output is vehicle order dependent, it might not be able to generalize the network towards vehicles in different orders.
-
-This is the reason for Grayscale Images, where we process the scenario of the environment with the road and the vehicles.
-This provides a more realistic and accurate representations of the state.
-Therefore, a Convolutional Neural Network (CNN) is used to process the grayscale image of the environment instead of getting the features of nearby vehicles.
-Moreover, the CNN can also take channels of the image normally represented as \(r,g,b\), however as we are using grayscale we can use a set number of previous frames as the channels for a broader representation of the state.
-Nonetheless, this will be computationally heavier as it will take more dimensions and more data than an array.
-
-Furthermore, the inputs for the networks are the states.
-DQN processes the states of the by first storing them into a memory replay circular buffer to be accessed after each time step.
-This is so that it can have a equal distribution of all the states that the agent has seen, so that it wouldn't forget any previously seen states.
-Nonetheless, the buffer still has a limit and so old states will be overwritten when new ones come in and the buffer is full.
-As the agent needs to learn at the start of the training, the agent will traverse through the environment an just store the state relevant information in there.
-
-As the agent learn from the memory replay it uses the Bellman equation on the target network versus the trained network for the best possible action against the action chosen and its discount value.
-Denote with the equation (not sure if it should be put)
-Then used the mean square error loss as the Huber Loss (maybe it should be L1 smooth loss) to get how far the best action is from the action chosen and update the q training network's parameters using gradient descent and backpropagation to output an action for similar states.
-Furthermore, to prevent exploding gradients I have clipped the gradients to \([-1,1]\)~\cite{mnih_human-level_2015} for more stable training.
+% Students may show evidence of creativity in their algorithmic approach and analysis. Students should demonstrate a deep understanding of their chosen method(s), as well as possible alternative approaches. (70\%)
 
 
+\subsection{Deep Q-Learning Network (DQN)}
 
-Epsilon-Greedy Policy:
-This uses epsilon decay to slowly decrease epsilon which decreases the amount of randomness that the actor performs.
-Instead of having a constant that goes down slowly regardless of the total amount of episodes defined where the epsilon might be big before ending the training.
-Linear annealing schedule was used to decrease the epsilon depending on the total amount of episodes.
-A float (0 to 1) will be assigned to decide if the actor should reach the minimum epsilon during 1 to 100\% of the training
+% DQN used to solve your problem and how they work, and why I chose you it.
 
+% good understanding of their chosen method(s)
+% give reasonable justifications for their algorithmic choices. 
+% reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
 
-Furthermore, the following extensions for Rainbow DQN were implemented based on the results it showed during the evaluation of the model and the metrics.
-The metrics are stored using tensorboard to keep track of the average rewards, exploration rate (epsilon), episode length and the average loss of the episode.
-Moreover, due to the limitation of our personal computers, Google Colab was used to train the model.
-As Google Colab can't render the environment for displaying purposes, saving and loading the parameters and buffers of the neural networks.
-As the rendering of the model is done locally, loading of the model was done locally and the videos were recorded.
-I could also import a package to automatically record a video of the render, but do time and priorities, it wasn't achieved,
+% show evidence of creativity in their algorithmic approach and analysis.
+% Demonstrate deep understanding of DQN and possible alternative approaches. 
 
-\section{Rainbow DQN}
-Rainbow DQN refers to various extensions on top of the basic DQN to improve the accuracy, speed,  and efficiency of the agent to reach the most optimal policy~\cite{hessel_rainbow_2017}.
-The extensions N-Steps, Double, Noisy Network, Prioritized Experience Replay (PER) and Dueling Network were implemented.
+To handle larger, complex environments, DQN extends Q-Learning by adding deep neural networks.
+Instead of storing Q values in tabular form, DQN uses a deep neural network to approximate the Q function and obtain Q values for all possible actions. This method allows the agent to generalize across large and continuous state spaces to solve the problem domain more efficiently. In highway-env, two observation spaces were used: kinematics and grayscale images.
 
-N-steps is an extension to the Bellman update from the Replay Memory~\cite{garcia_understanding_2019}.
-Depending on the n, we retrieve n states after the chosen one to capture the future information of the states and then aggregated those Q values into the selected state.
-This increase the accuracy of the representation of the memory by reducing the variance and learns more about the states with less episodes.
+Multilayer Perceptron (MLP) neural network processes the kinematics states and computes the Q-values for available actions. As a simple feedforward network, MLP grasps the non-linear relationships between data, making it ideal for the initial implementation of DQN. On the other hand, Convolutional Neural Networks (CNN) provides more realistic and accurate representations of the state using grayscale images~\ref{appendix:grayscale-observation}. 
+Moreover, the RGB channels of the input image are replaced with grayscale images of the three previous frames for a broader and more accurate representation of the states.
 
-Moreover, the max operator of the actions values tends to prefer overestimated (higher) values instead of the lower ones.
-Therefore, it would continuously select the highest action value instead of getting the values of the best action, learning to a suboptimal policy.
-Double DQN then takes the best actions from the trained network and uses it to get the probability (Q values) of that action in the target network loss to learn the best action in the state~\cite{hasselt_deep_2015}.
-This will stop the target value when overestimating the action values by separating the action selection and evaluation.
+Therefore, the training and target CNNs are randomly initialized with the same weights using the He initialization due to the choice of ReLU and handling of exploding gradients~\cite{hekaiming2015}.
+DQN utilizes a circular memory replay buffer for network inputs to store and learn from the agent's past experiences.
+Furthermore, epsilon decay utilizes a linear annealing schedule to decrease to the minimum epsilon at 80\% of training when epsilon decay is set to 0.8.
 
-The Noisy Network is a Network or a Layer that is used for explorations instead of epsilon-greedy policy which is predetermined decrease of randomly selecting actions which is suitable for simpler environments.
-This paper~\cite{fortunato_noisy_2019}, adds noise to the weights (sigma and mu) to the weights of a network for the network to slowly adapt to the noisy over a period of time resulting in more adaptive exploration.
-The intensity of the noise is the epsilon which is initialized in the beginning of the network and sampled using the Factorized Gaussian Distribution.
-Put the equation here:
+During training, the agent samples a batch of transitions from the repay memory buffer to get the training network's q values of the actions in the state.
+The Bellman equation then takes the target network's q values of the best possible action to get the state value based on the action's reward and the expected value of future states.
+Then, using the actual q-value and the target q-value, the mean square error loss (Huber Loss) is computed to perform gradient descent and backpropagation to update the training network weights.
+These two networks are used as it is necessary for the training network to slowly improve its predictions on a fixed target network compared to chasing its own tail.
+Therefore, the target network is only updated a few times during training.
+Furthermore, gradients were clipped to \([-1,1]\)~\cite{mnih_human-level_2015} for more stable training to prevent exploding gradients.
 
-Noise was implemented using the two weights (sigma and mu) as two vectors being of the size of the input and output respectively.
-Factorized is used to decrease the sample amount and also ensuring non-negative values to make it more scalable
+\subsection{Rainbow DQN}
 
+Rainbow DQN refers to various extensions to overcome the shortcomings of DQN~\cite{hessel_rainbow_2017}.
+These extensions include N-Steps, Double, Noisy Network, Prioritized Experience Replay (PER) and Duelling Network.
 
-PER is a new Memory Replay for storing and sampling memories based on there importance, which how much loss they generate.~\cite{schaul_prioritized_2016}.
-Instead of randomly sampling experiences, PER is used to sample a proportion of the states based on how much it influences the agent.
-The storage uses a Sum Segment Tree to store the indexes of the memories and their corresponding priorities to be retrieved as the leafs and the parent nodes as the sums.
-The leafs are stored as (2 * capacity) + index and then propagate upwards to update the sum all stored in an array.
-Then the average sum of the priorities in the tree is used to get the index with the highest priority.
-These indexes retrieve the transitions and its equivalent weights to how much should the loss be punished to be updated.
-This utilizes importance sampling \((1/N * 1/P(i))^{\beta}\) to compensate for when beta is 1 for non-uniform probabilities.
-The retrieval of the elements are based on dividing the index by two to get the sum of it.
+N-steps is an extension to the Bellman update to the Replay Memory~\cite{garcia_understanding_2019}.
+We retrieve n states after the chosen one to capture the future information of the states and then aggregate those Q values into the selected state.
+This reduces the variance, increasing the accuracy of the transition representation. Thus, it learns more about the environment with fewer episodes.
 
-Prioritized replay introduces bias because it changes this
-distribution in an uncontrolled fashion, and therefore changes the solution that the estimates will
-converge to (even if the policy and state distribution are fixed). 
+Moreover, in DQN, the max operator of the action values tends to prefer overestimated values over underestimated values, leading to a suboptimal policy.
+Double DQN addresses this issue by taking the best actions from the trained network and getting its Q-value for a more accurate representation by separating the action selection and evaluation state~\cite{hasselt_deep_2015}.
 
-Correct bias using importance-sampling (IS) 
-hat fully compensates for the non-uniform probabilities \(P(i) if \beta = 1\). 
-% These weights can be folded into the Q-learning update by using w_i * δ_i instead of δ_i (this is thus weighted IS, not ordinary IS, see e.g. Mahmood et al., 2014).
+Noisy Net~\cite{fortunato_noisy_2019} is a Neural Network Layer that improves exploration efficiency. Unlike epsilon-greedy strategies, which often return random actions despite the agent’s state, it introduces stochasticity by adding noise into the weights ($w$) and biases ($b$) via $\epsilon$, $\sigma$, and $\mu$.
 
-Dueling Network consists of 2 additional layers that separate the estimation of the state value and the action advantage function~\cite{wang_dueling_2016}.
-The action advantage function is the difference between the Q-values for a state.
-The state value (V) and the advantage value (A) are then aggregated layer to learn the Q value of the state without considering its actions, and weighting how important it truly is.
-I take the mean of the advantage layer to normalize the output so V(s) doesn't contain information about the action values.
-The benefits during training is that because it uses the TD error, it separates updating the state value function and action advantage function to reordering the best actions.
+\vspace*{-7pt}
+\begin{equation}
+    Y = (\mu^w + \sigma^w \otimes \epsilon^w)x + (\mu^b + \sigma^b \otimes \epsilon^b)
+\end{equation}
+\vspace*{-9pt}
+
+During each forward pass, epsilon values are sampled to perturb the network parameters. Both $\mu$ and $\sigma $ parameters are learnable and updated during backpropagation. The network learns the optimal weights and the optimal noise scale $\sigma$ to balance exploration and exploitation. Factorized Gaussian does not require sampling noise for each parameter, making it more computationally efficient than independent Gaussian.
+
+Instead of randomly sampling experiences, PER is an improved Memory Replay for sampling memories based on how much loss (surprise) they generate. ~\cite{schaul_prioritized_2016}.
+A Sum Segment Tree stores the indexes of memories and their corresponding priorities. Proportional Prioritization retrieves experiences based on the average sum of the priorities to calculate each tree segment.
+For each segment, the indexes with the highest priority are identified and used to retrieve the transitions.
+Moreover, the transition weights influence the loss calculation for newer priority updates.
+Furthermore, it utilizes importance sampling \((1/N * 1/P(i))^{\beta}\) to compensate for when the beta is 1 for non-uniform probabilities when selecting the segments.
+
+Moreover, to improve the training efficiency, Dueling Network is utilized to separate the estimation of the state value and the action advantage function~\cite{wang_dueling_2016}.
+The advantage function refers to the difference between the action Q-values for a state.
+The state value and the advantage value are then aggregated to learn the state's Q-value without considering its actions or weighing its importance.
+The mean of the advantage layer is taken to normalize the output for the state value to disregard information on the action values, shown in Equation~\ref{eq:dueling_net}.
 Furthermore, only one output neural (the action chosen) is being updated at a time, so the separation leads to more stable learning and generalizability across different states and actions.
 
-%################################################################################
-\section{Proximal Policy Optimization (PPO)}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Method (2 Page)
-% A description of the method(s) used to solve your chosen problem, an explanation of how these methods work (in your own words), and an explanation of why you chose these specific methods.
-
-% Students should demonstrate a good understanding of their chosen method(s) and give reasonable justifications for their algorithmic choices. This should include demonstrating a reasonable appreciation of the strengths and weaknesses of alternative methods.(60\%)
-
-% Students may show evidence of creativity in their algorithmic approach and analysis. Students should demonstrate a deep understanding of their chosen method(s), as well as possible alternative approaches. (70\%)
-
-\subsection{Policy Network}
-Actor-Critic RL approaches are implemented in PPO \cite{konda_actor-critic_1999}. Two networks are trained concurrently: \texttt{Critic} learns to approximate the state value function; \texttt{Actor} accordingly maps from states to actions. The structures of two networks are different for different observations ( CNN policy and MLP policy). For MLP, both \texttt{critic} and \texttt{actor} are constructed with 3 fully connected layers. For CNN, the observation is first pass by a shared convolutional neural network to extract the feature of the image, and then passed to \texttt{critic} or \texttt{actor} where each is structured as a 1 full-connected layer. The structure of the shared convolutional neural network is the same as it was in DQN, as it has been adjust to have the best performance in understanding the CNN input. 
-
-Hyperbolic Tangent (Tanh) was selected as the activation function after all layers in both policies. It normalize the outputs between $-1$ and $1$, which allows the network to have a more stable learning process and faster convergence. Also, layers are initiated  with orthogonal matrices for a stable gradient flow. Where the gain of that in \texttt{actor} is $0.01$ for ..., and $1$ in \texttt{critic} for ...
-
-% PPO pseudocode
-\subsection{Training}
-Overall, the training process for PPO follows an iterative approach\cite{schulman_proximal_2017}. In each iteration, the current policy interacts with the environment to collect data over a fixed number of steps. Using these data, generalized advantage estimates are computed and used to optimize a surrogate loss function over multiple epochs. Minibatches was implemented for stable and efficient updates. After each update, the new policy replaces the old one and the process repeats for subsequent iterations. 
-
-To collect data, a class \texttt{train\_data} is used to record all necessary data for each step, including state, the chosen action, value of the state, reward, log of probability, and whether the episode end.
-
-\subsubsection{Generalized Advantage Estimation (GAE)}
-Similar top Dueling Network in DQN, the advantage function is used to measure how much better or worse an action is compared to value of state, and it is generalized and normalized to balance bias and variance. Since policy are updated with minibatch, there exist situations that epoch ends with a non-terminal state of an episode. In this case, the value of the last state is estimated using the value network.
-
-\subsubsection{Update Policy}
-After that, GAE is then used to compute loss function to update policy network with ADAM optimizer. Clipped surrogate $L^{\text{CLIP}}(\theta)$ was selected to implement as it outperforms other policy gradient methods\cite{schulman_proximal_2017}. The $L^{\text{CLIP}}(\theta)$ aims at maximize the improvement, but limit the change to avoid bug change in one iteration:
+\vspace*{-10pt}
 \begin{equation}
-    L^{\text{CLIP}}(\theta) = \mathbb{E}_t \left[ \min \left( r_t(\theta) \hat{A}_t, \, \text{clip} \left( r_t(\theta), 1 - \epsilon, 1 + \epsilon \right) \hat{A}_t \right) \right]
+    Q(s,a:\theta) = V(s:\theta) + ( A(s:a:\theta) - \frac{1}{|A|} \sum A(s:a':\theta) 
 \end{equation}
-
-Where the ratio $r_t(\theta) = \frac{\pi_\theta(a_t \mid s_t)}{\pi_{\theta_\text{old}}(a_t \mid s_t)}$ is the probability ratio between current and old policies for taking action $a_t$ in state $s_t$. Therefore, $r_t(\theta) \hat{A}_t$ reflects ... and hence maximize improvement. However, to avoid big policy change in one iteration, the ratio of GAE is clipped between $1 - \epsilon$ and $1 + \epsilon$, where $\epsilon$ is a hyperparameter.
-
-\section{Results (1 Page)}
-To evaluate the quantitative results, the tensorboard's results display how well the agent trains for the environment.
-
-Display the different Extension of the Rainbow as well as MLP and CNN.
-
-A presentation of your results, showing how quickly and how well your agent(s) learn (i.e. improve their policies).
-
-nclude informative baselines for comparison 
-best agent
-human agent
-random agent
-
-% TODO: Have a table that shows the average rewards after certain amount of iterations:
+\label{eq:dueling_net}
+\vspace*{-12pt}
 
 
-\section{Discussion (< 2 Page)}
-An evaluation of how well you solved your chosen problem.
+%################################################################################
+\subsection{Proximal Policy Optimization (PPO)}
 
-evaluate the performance of their agent(s),and include comparisons with key baselines and some alternative approaches.(60\%)
+PPO implements Actor-Critic reinforcement learning approach\cite{konda_actor-critic_1999}, where two networks are trained simultaneously: the \texttt{Critic}, which approximates the state value function, and the \texttt{Actor}, which maps states to actions. Separate network structures (MLP and CNN), as stated in DQN, are used to handle different types of observations.
+
+% Features are generated through the neural networks (MLP and CNN), as stated in DQN, to be passed to the \texttt{Critic} and \texttt{Actor}. 
+
+% If content needs to be shortened, consider moving this paragraph to the appendix  'Experiment Details' or 'Hyperparameter Selection'
+
+The Hyperbolic Tangent (Tanh) function is utilized as it demonstrated superior performance among various activation functions \cite{karlik_performance_nodate}. Tanh normalizes outputs between $-1$ and $1$, contributing to a more stable learning process and faster convergence.
+
+To ensure stable gradient flow during training, all layers were initialized with orthogonal matrices. 
+The initialization gain was set to $0.01$ for the \texttt{Actor},
+% as smaller initializations encourage exploration and prevent overconfident action predictions in early training. 
+For the \texttt{Critic}, the gain was set to $1$ to provide a broader range of initial weights for more accurate value predictions.
+% Same as above, details of value setting can be moved to the appendix  'Experiment Details' or 'Hyperparameter Selection'
+
+The training process for PPO follows an iterative approach\cite{schulman_proximal_2017}. In each iteration, the current policy interacts with the environment to collect data over a fixed number of steps. Using these data, generalized advantage estimates are computed to optimize a surrogate loss function over multiple epochs. Minibatches were implemented for stable and efficient updates. After each update, the new policy replaces the old one, and the process repeats for subsequent iterations. 
+
+% To collect data, a class \texttt{train\_data} is used to record all necessary data for each step, including state, the chosen action, value of the state, reward, log of probability, and whether the episode ends.
+
+% **what do you mean by data -> do you mean transistions (the states) **
+
+%  I don't think Minibatches was implemented for stable and efficient updates. 
+% After each update, the new policy replaces the old one and the process repeats for subsequent iterations. 
+
+% I don't think this is needed
+% To collect data, a class \texttt{train\_data} is used to record all necessary data for each step, including state, the chosen action, value of the state, reward, log of probability, and whether the episode end.
+
+% The key that PPO managed to reduce training variance is through the Clipped Surrogate Objective
+% Function, which is defined as follows [12]
+
+
+% \subsubsection{Generalized Advantage Estimation (GAE)}
+
+% It uses the advantage function, time and action, time + 1 action
+% critic estimate the state value -> get the t to t + 1 
+% - what action is
+% - and value of state t to t + 1
+% -> action of advantage function is positive
+
+% Advantage Function like the q value gamma and lambda (hyperparameters)
+% - for each pair of t, t+1 update the advantage function
+
+% Has the advantage function of each action
+
+% This advantage function measures how good or bad the action compared to the value of state, and it is generalized to $\hat{A}_t$ with hyperparameters $\gamma$ and $\lambda$, which balance bias and variance. 
+
+% The advantage function evaluates how much better or worse an action is compared to the expected value of the state estimated by \texttt{critic}. To balance bias and variance, the advantage is generalized using Generalized Advantage Estimation (GAE) before being used for the policy update. Additionally, each batch of the generalized advantage estimations is normalized to stabilize training.
+
+The advantage function uses the value of state estimated by \texttt{critic} to evaluate how much better or worse an action is. Before it is used for policy updates to balance bias and variance, it is generalised, and each batch of the generalised advantage estimations is normalised.
+
+% Since policies are updated with minibatch, there are situations in which an epoch ends with a non-terminal state of an episode. In this case, the value of the last state is estimated using the value network.
+
+To update the policy, the three components: clipped surrogate loss $L^{\text{CLIP}}(\theta)$, value loss $L^{\text{VALUE}}(\theta)$, and entropy $\text{entropy}(\theta)$ are used to compute loss. \ref{appendix:ppo}
+
+% First, clipped surrogate function $L^{\text{CLIP}}(\theta)$ acts as a soft trust region to stabilize policy updates 
 
 
 
-perform an in-depth evaluation of their chosen method(s) and include comparisons to and evaluations of additional baselines and alternative methods.(70\%)
+\section{Results}
+% A presentation of your results, showing how quickly and how well your agent(s) learn (i.e. improve their policies).
 
-Monte Carlo
+% Don't delete this, The reason why MLP might be bad.
+% This might be due to the nearby vesicles being order dependent, making it less generalizable towards vehicles in different orders.
 
-DQN
-The implementation of Rainbow DQN showed that MLP wasn't the best policy since it didn't have as much information as with CNN.
+To capture and evaluate the agents' performance, the Tensorboard captures the rewards, episode length, training time, exploration rates and agent loss during training.
+The rewards range from 0 to 1, where the agent vehicle drives as fast as possible without colliding with other vehicles. Furthermore, the episode's duration is shortened by 30 steps, and training time is capped at 2 hours. However, if the learning curve doesn’t plateau, additional episodes are added 5000 each time.
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{\textwidth}
+        \centering
+        \includegraphics[width= 0.9\textwidth]{images/DQN baseline Mem Rew.png}
+        \caption{Baseline DQN Rewards}
+        \label{fig:Baseline DQN Rewards}
+    \end{minipage}
+\end{figure}
+\autoref{fig:Baseline DQN Rewards} shows the agent rewards converging to 0.73 despite hyperparameter tuning.
+The capacity of the replay memory was increased to 100,000 (previously 10,000), and tuning of the CNN network was tested. Unfortunately, it proved to be futile, so additional extensions were implemented.
+
+\subsection{DQN extensions}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/DQN_extension Rew.png}
+    \caption{DQN extensions Rewards}
+    \label{fig:DQN extensions}
+\end{figure}
+
+\autoref{fig:DQN extensions} shows the various results for DQN extensions. Displaying an overall improvement when compared to the baseline DQN model. In the extensions Dueling DQN achieves the highest reward with 0.8777. Showing the ability to effectively evaluate between state and action significantly benefits the agent’s performance in this given environment. On the other hand, n-step achieves the lowest reward at 0.7503. This result could potentially be an unfavorable random seed generation or temporal differences not being the key factor of Baseline DQN underperforming.
+
+All other models exhibit a reward increase from the 3200th episode. This followed expectation, as the epsilon reaches its minimum at 50\% of the total episodes, providing time for the model to learn about the current optimal policy based on previous exploration.
+
+Despite implementing Noisy Net, time constraints and longer runtime due to the additional NN layers prevented us from training a presentable model. However, the motivation of NoisyNet remains the same (solving exploration difficulties). It would excel when the agent needed to explore more in a specific state. For example, in a scenario where the agent is confined between two cars (one directly ahead and the other is on its left when in the rightmost lane). A human driver will intuitively suggest slowing down, allowing the left car to overtake before merging into the lane. The current agent fails to address this scenario, but incorporating NoisyNet could potentially solve this issue with further exploration.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/DQNvsRDQN Rew.png}
+    \caption{Rainbow DQN vs Baseline DQN Rewards}
+    \label{fig:Rainbow DQN vs Baseline DQN}
+\end{figure}
+
+\autoref{fig:Rainbow DQN vs Baseline DQN} displays the result for RainbowDQN implementation, containing two training variants: 20,000 episodes and 30,000 episodes. Both models significantly outperform the Baseline DQN. The rainbow DQN was trained using hyperparameters identical to the Baseline DQN, ensuring a fair comparison.
+
+After completing training with 20,000 episodes, the curve indicates there is potential for further improvement, as the reward did not plateau. Hence, the episode number was increased to 30,000, resulting in a reward of 0.9006, which aligned with the median performance of a human baseline.
+
+ 
+
+\subsection{PPO}
+After hyperparameters tuning, the PPO agent with a CNN policy network achieved an average reward of approximately $0.69$. Its performance over training iterations is shown in \autoref{fig:PPO-300}. While the reward did not improve significantly from initialization, the agent managed to increase the average episode length from around 8–14 steps to 30 steps. However, this length was capped at 30 steps because the agent often failed to take new actions, leading the episode to be truncated. 
+
+Reviewing the agent's recorded performance, it was observed that the PPO agent learned basic behaviours, such as adjusting its speed to avoid collisions with nearby vehicles. However, it failed to learn more complex behaviours, such as lane-switching or speeding up for overtaking.
+
+Experiments were also conducted with an MLP network using the same hyperparameters. Interestingly in \autoref{fig:PPO-MLP}, the agent achieved a higher average reward of $0.72$. In addition to adjusting its speed, the MLP-based agent learned to switch to the rightmost lane to maximize its reward.
+
+\subsection{Comparision Table}
+% \begin{table}[ht]
+%     \centering
+%     \begin{tabular}{|c|c|c|}
+%         \hline 
+%         \textbf{Algorithm} & \textbf{Episode Length} & \textbf{Reward} \\ \hline
+%         Baseline DQN       & 28.289                  & 0.7341          \\ \hline
+%         Rainbow DQN        & 21.9697                 & 0.9006          \\ \hline
+%         PPO (MLP)          & 27.9201                 & 0.7228          \\ \hline
+%         PPO (CNN)          & 30.0                    & 0.69            \\ \hline
+%         Q-learning         &                         &                 \\ \hline
+%     \end{tabular}
+%     \caption{Performance Comparison of different Algorithms}
+%     \label{tab:algorithm_performance} 
+% \end{table}
+
+% \begin{table}[ht]
+%     \centering
+%     \begin{tabular}{|c|c|c|}
+%         \hline
+%         \textbf{Algorithm} & \textbf{Episode Length} & \textbf{Reward} \\ \hline
+%         Dueling DQN       & 21,205                 & 0.8777          \\ \hline
+%         NStep DQN      & 18.6889               & 0.7503          \\ \hline
+%         PER DQN            & 20.6469               & 0.8484         \\ \hline
+%         Double DQN        &   19.9802                      &  0.8683               \\ \hline
+%     \end{tabular}
+%     \caption{Performance Comparison of DQN Extensions}
+%     \label{tab:algorithm_performance}
+% \end{table}
+
+\begin{table}[ht]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \textbf{Algorithm} & \textbf{Episode Length} & \textbf{Reward} \\ \hline
+            PPO (MLP)          & 27.9201                 & 0.7228          \\ \hline
+            PPO (CNN)          & 30.0                    & 0.69            \\ \hline
+            Q-learning         & 27.1696                 & 0.7094          \\ \hline
+            Human              & 29.7                    & 0.882          \\ \hline
+            Human              & 12.13                    & 0.725         \\ \hline
+        \end{tabular}
+        \vspace*{4pt}
+        \caption{Performance Comparison of Different Algorithms}
+        \label{tab:algorithm_performance}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \textbf{Algorithm} & \textbf{Episode Length} & \textbf{Reward} \\ \hline
+            Baseline DQN       & 28.289                  & 0.7341          \\ \hline
+            Rainbow DQN        & 21.9697                 & 0.9006          \\ \hline
+            Dueling DQN       & 21.205                  & 0.8777          \\ \hline
+            NStep DQN          & 18.6889                 & 0.7503          \\ \hline
+            PER DQN            & 20.6469                 & 0.8484          \\ \hline
+            Double DQN         & 19.9802                 & 0.8683          \\ \hline
+        \end{tabular}
+        \vspace*{4pt}
+        \caption{Performance Comparison of DQN Extensions}
+        \label{tab:dqn_extensions}
+    \end{minipage}
+\end{table}
+
+\section{Discussion}
+% An evaluation of how well you solved your chosen problem.
+% evaluate the performance of their agent(s)
+% include comparisons with key baselines and some alternative approaches
+
+% Q-learning
+The Q-learning agent becomes less practical when the environment becomes more complex through continuous or large state space. The tabular approach does not consider unseen states at the point of evaluation, so the algorithm cannot generalize to unseen data or be used across different environments. 
+
+% Rainbow DQN
+The implementation of Rainbow DQN showed that MLP wasn't the best policy since it didn't have as much information as CNN.
 Therefore, as most of the features were implemented using the CNN policy, it would result in a better outcome.
 
-TODO: talk about the difference between the different stuff
 
-PPO
+For the could have implemented Soft Updates (Polyak Averaging) for the target network
 
-Overall, it still does seem that this environment is still more suitable for humans to control as the human agent performed the best and got the best results.
-So, it can be said that self-driving cars would require either as many senses as humans and be trained for tremendous amounts of times to reach a level that humans are at.
+% PPO
+
+From the rewards achieved, the PPO agent's performance is suboptimal compared to our other solutions, with an average reward of $0.69$. Although its average episode length improved over training, it capped at 30 steps. By examining the evaluation results, we observed that episodes ending at 30 steps were typically due to truncation rather than the agent achieving the done condition. This truncation may result from the agent failing to take action within the time limit imposed by the environment, further highlighting its performance limitations.
+
+To evaluate whether PPO required extended training to improve its performance, we conducted an experiment with 500 iterations. The detailed parameters and training results are included in Appendix~\ref{sec:hyperparametwe_selection}. Interestingly, significant fluctuations were observed after approximately 250 iterations, indicating that the agent was attempting to explore new strategies. However, these fluctuations ultimately converged to the original performance, suggesting that the agent may have been stuck in a local optimum. Furthermore, as the agent still gets truncated, it suggests that the PPO failed to learn complex behaviours.
+
+% Did it solve the chosen problem
+Ultimately, this environment appears more suited for human control, as the agent achieved the best performance and results.
+As a result, self-driving cars need to possess as many senses as humans or undergo extensive training to achieve human-like capabilities.
+
+Moreover, this project did not explore alternative reinforcement learning methods. Implementing two of them, asynchronous advantage actor-critic (A3C) and deep deterministic policy gradient (DDPG), could help evaluate their performance in this environment.
 
 
+Furthermore, this project can be replicated by using seeds and being trained on one machine, thereby increasing the reliability of the results.
 
 
-\section{Future Work (0.5 Page)}
-A discussion of potential future work you would complete if you had more time.
-
-Potential future work that could be completed with more time is to finish PPO and make it better than DQN as shown in some other results.
-
-
-
-\section{Personal Experience (0.5 Page)}
+\section{Personal Experience}
 A discussion of your personal experience with the project, such as difficulties or pleasant surprises you encountered while completing it.
 
+Q-learning is incapable of inferring actions on previously unseen states. Due to limiting factors such as the functionality of the cloud computing space, personal PC computing power, and RAM storage, Q-learning was not able to find the optimal policy over 20,000 episodes. This shows that Q-learning should only be considered when using environments with smaller state spaces or with hardware that allows for large computational loads. 
+
 There were various difficulties with the implementation of Rainbow DQN.
-Firstly, the neural networks used (MLP and CNN) were initially used softmax when getting the probabilities, however this proved that large values for the CNN at the start of training proved that it would converge to a policy that would produce the same results as softmax makes the probabilities the same and would always choose the first one during argmax.
-Therefore, to debug the neural network, the CNN was simplified and removed the softmax to fix issues regarding the actions chosen from the policy.
+
+One of the primary challenges encountered during the development process was hardware constraints. Training the models in a highway environment required significant computational resources, with each model taking between 1 to over 8 hours to complete. This limitation greatly impacted our ability to experiment with and refine the models within the project’s timeframe.
+
+A significant portion of our focus was directed toward optimizing Rainbow DQN to establish a strong baseline solution before exploring the potential of PPO. As a result, limited time and resources were available to thoroughly experiment with PPO’s hyperparameters and optimization techniques. 
+
+The lack of computational resources made it challenging to validate hypotheses or explore alternative configurations that could have improved PPO’s performance. Furthermore, logging and debugging during long training sessions added further delays, limiting opportunities for in-depth experimentation.
+
+Given more time and access to better hardware, a more systematic exploration of PPO’s capabilities would be feasible
+
+\section{Future Work (0.5 Page)}
+% I want to move future works at the end cause I think it is more important and should be the last thing of the paper
+% A discussion of potential work you would complete if you had more time.
+% This is a discussion
+
+% strengths and limitations
+% summarize the purpose of them
+
+Potential future work that could be completed with more time is finishing PPO to achieve the same or better results than Rainbow DQN.
+
+*YOYO*: Talk about PPO and handling discrete and continuous action spaces (how it can be better)
+as the purpose of DQN uses the continuous action space 
+
+Despite the implementation of PPO with both CNN and MLP policy networks, there is significant room for improvement to address the current model's limitations. Two primary directions for future work are encouraging more exploration and refining the reward structure.
+
+One of the main challenges observed was the model's tendency to get stuck in local optima, which led to limited action diversity and capped episode lengths. Therefore, improvement is needed to encourage the model to explore more policies. This could be achieved through adaptive entropy or parallel agent training with shared updates.
+
+On the other hand, the current PPO implementation relies on the environment's default reward structure. To incentivize complex actions, a customized reward system, such as penalizing low speeds, could be introduced.
+
+Nonetheless, these agents were only trained in the highway environment, which isn't generalizable to other environments and different problem spaces, such as Merging and Parking.
+Furthermore, customization of the highway environment, such as traffic \cite{} to increase the environment's realism.
+Therefore, if multiple agents can be trained in different environments, the system could grasp the general aspects of driving and thus become capable of driving a vehicle in most environments.
+Moreover, because we used CNN, we could diversify the results in more environments.
+
 
 \newpage
 \bibliographystyle{unsrt} 
 \bibliography{references} 
 
-% \normalsize
-% \newpage
-% \section*{Appendices}
+\normalsize
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section*{Appendices}
 % If you have additional content that you would like to include in the appendices, please do so here.
 % There is no limit to the length of your appendices, but we are not obliged to read them in their entirety while marking. The main body of your report should contain all essential information, and the content in the appendices should be clearly referenced where it's needed elsewhere.
-% \subsection*{Appendix A: Example Appendix 1}
-% \subsection*{Appendix B: Example Appendix 2}
+\subsection*{Appendix A: Problem Domain}
+\label{sec:problem_domain}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{images/grayscale obervation.png}
+    \caption{Grayscale observation~\cite{leurent_social_2019}}
+    \label{appendix:grayscale-observation}
+\end{figure}
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.5\linewidth]{}
+%     \caption{Feature description of Kinematics observation space}
+%         \begin{itemize}
+%         \item \textbf{Presence ($f_1$)}: A binary indicator where 1 implies a vehicle is present, and 0 denotes a placeholder for absent vehicles.
+%         \item \textbf{X-position ($f_2$)}: The $x$-coordinate, where it is absolute for the ego-vehicle and relative to the ego-vehicle for others. Normalized from the original range $[-100, 100]$.
+%         \item \textbf{Y-position ($f_3$)}: The $y$-coordinate, which is also absolute for the ego-vehicle and relative for others. Normalized from the original range $[-100, 100]$.
+%         \item \textbf{Velocity in X ($f_4$)}: The velocity component along the $x$-axis. Normalized from the original range $[-20, 20]$.
+%         \item \textbf{Velocity in Y ($f_5$)}: The velocity component along the $y$-axis. Normalized from the original range $[-20, 20]$.
+%         \item \textbf{Cosine of Heading ($f_6$)}: The cosine of the heading angle of the vehicle, representing orientation.
+%         \item \textbf{Sine of Heading ($f_7$)}: The sine of the heading angle of the vehicle, representing orientation.
+%     \end{itemize}
+%     \label{fig:kinematics features}
+% \end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{images/kinematics_observation.png}
+    \caption{Kinematics observation features~\cite{leurent_social_2019}}
+    \label{appendix:kinematics observation}
+\end{figure}
+
+Human-based results were obtained from people who had no prior knowledge of the objectives that were given to agents, such as rewards for prioritising driving on the right lane or increasing the speed. This could 
+
+\subsection*{Appendix B: Experimental details}
+\label{sec:experimental_details}
+
+\subsubsection{Q-Learning}
+\label{appendix:q_learning_details}
+
+$$Q(s, a) \leftarrow Q(s, a) + \alpha \left[ r + \gamma \max_{a'} Q(s', a') - Q(s, a) \right]$$
+
+Where:
+\begin{itemize}
+    \item $Q(s, a)$ is the current Q-value for state \( s \) and action \( a \),
+    \item $\alpha$ is the learning rate (controls how much new information overwrites old),
+    \item  $r$ is the reward received after taking action $a$ in state  $s$,
+    \item $\gamma$ is the discount factor (determines the importance of future rewards),
+    \item  $\max_{a'} Q(s', a') $ is the maximum Q-value for the next state  $s'$  over all possible actions.
+\end{itemize}
+
+\subsection{PPO Policy update}
+\label{appendix:ppo}
+Clipped surrogate $L^{\text{CLIP}}(\theta)$ was selected to implement as it outperforms other policy gradient methods\cite{schulman_proximal_2017}. The $L^{\text{CLIP}}(\theta)$ aims at maximize the improvement but limit the change to avoid bug change in one iteration:
+\begin{equation}
+    L^{\text{CLIP}}(\theta) = \mathbb{E}_t \left[ \min \left( r_t(\theta) \hat{A}_t, \, \text{clip} \left( r_t(\theta), 1 - \epsilon, 1 + \epsilon \right) \hat{A}_t \right) \right]
+\end{equation}
+
+% A tutorial explaining this part in detail is available at https://huggingface.co/learn/deep-rl-course/unit8/clipped-surrogate-objective
+Where the ratio $r_t(\theta) = \frac{\pi_\theta(a_t \mid s_t)}{\pi_{\theta_\text{old}}(a_t \mid s_t)}$ is the probability ratio between current and old policies for taking action $a_t$ in state $s_t$. Therefore, $r_t(\theta) \hat{A}_t$ reflects the relative improvement achieved by the new policy compared to the old one for that specific action. To prevent this value from being too large and potentially destabilizing policy changes in a single iteration, overly constraining the optimization process, this ratio is clipped between $1 - \epsilon$ and $1 + \epsilon$.
+
+Value loss $L^{\text{VALUE}}(\theta)$ is included to ensure that the value network \texttt{critics} accurately estimates the state value function. % to save space, dont think it is necessary to include equation here, it should be fine to just state we have considered optimizing value network as L value does not make big different ( like we do not need to chose use what equation for value loss ..? 
+\vspace*{-14pt}
+\begin{equation}
+    L^{\text{VALUE}}(\theta) = \frac{1}{N} \sum_{i=1}^{N} \left( V(s_i) - R_i \right)^2
+\end{equation}
+\vspace*{-8pt}
+
+It, therefore, minimizes the squared difference between the predicted value of a state and the observed return. 
+During training, it was observed that the agent often favours actions such as slowing down or speeding up without significant exploration of other actions. 
+To address this issue, an entropy $\text{entropy}(\theta)$ to encourage exploration by penalizing overly deterministic policies. Finally, the final loss function is defined by the following equation
+
+\vspace*{-8pt}
+\begin{equation}
+    L(\theta) = L^{\text{CLIP}}(\theta) + c_{text{loss}} \cdot L^{\text{VALUE}}(\theta) - c_{text{loss}} \cdot \text{entropy}(\theta)
+\end{equation}
+\vspace*{-12pt}
+
+
+\subsection*{Appendix C: Hyperparameter Selection}
+\label{sec:hyperparametwe_selection}
+\begin{table}[ht]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \begin{tabular}{|l|c|}
+        \hline
+        \textbf{Parameter}      & \textbf{Value} \\ \hline
+        Episode Number          & 8000           \\ \hline
+        Discount Factor (\(\gamma\)) & 0.8             \\ \hline
+        Learning Rate (\(\alpha\))   & \(5 \times 10^{-4}\) \\ \hline
+        Memory Capacity         & 10,000         \\ \hline
+        Timeout (minutes)       & 0              \\ \hline
+        Policy Network          & CNN            \\ \hline
+        Random Seed             & 42             \\ \hline
+        \end{tabular}
+        \vspace*{4pt}
+        \caption{DQN extensions}
+        \label{tab:algorithm_performance}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \begin{tabular}{|l|c|}
+        \hline
+        \textbf{Parameter}      & \textbf{Value} \\ \hline
+        Episode Number          & 20,000           \\ \hline
+        Discount Factor (\(\gamma\)) & 0.9             \\ \hline
+        Learning Rate (\(\alpha\))   & \(1 \times 10^{-4}\) \\ \hline
+        Memory Capacity         & 10,000         \\ \hline
+        Timeout (minutes)       & 0              \\ \hline
+        Policy Network          & CNN            \\ \hline
+        \end{tabular}
+        \vspace*{4pt}
+        \caption{Rainbow DQN and Baseline DQN}
+        \label{tab:dqn_extensions}
+    \end{minipage}
+\end{table}
+
+
+
+
+\subsection*{Appendix D: Performance Metrics}
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/PPO-300-train-len.jpg}
+        \caption{Average episode length over iteration during training}
+        \label{fig:PPO-300-train-len}
+    \end{subfigure}
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/PPO-300-train-reward.jpg}
+        \caption{Average episode reward over iteration during training}
+        \label{fig:PPO-300-train-reward}
+    \end{subfigure}
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/PPO-300-eval-len.jpg}
+        \caption{Average evaluated episode length over iteration}
+        \label{fig:PPO-300-eval-len}
+    \end{subfigure}
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/PPO-300-eval-reward.jpg}
+        \caption{Average evaluated episode reward over iteration}
+        \label{fig:PPO-500-eval-reward}
+    \end{subfigure}
+    \caption{Performance Metrics of PPO(CNN) with 300 iterations}
+    \label{fig:PPO-300}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/PPO-MLP-train-len.jpg}
+        \caption{Average episode length over iteration during training}
+        \label{fig:PPO-MLP-train-len}
+    \end{subfigure}
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/PPO-MLP-train-reward.jpg}
+        \caption{Average episode reward over iteration during training}
+        \label{fig:PPO-MLP-train-reward}
+    \end{subfigure}
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/PPO-MLP-eval-len.jpg}
+        \caption{Average evaluated episode length over iteration}
+        \label{fig:PPO-MLP-eval-len}
+    \end{subfigure}
+    \begin{subfigure}{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/PPO-MLP-eval-reward.jpg}
+        \caption{Average evaluated episode reward over iteration}
+        \label{fig:PPO-MLP-eval-reward}
+    \end{subfigure}
+    \caption{Performance Metrics of PPO(CNN) with 300 iterations}
+    \label{fig:PPO-MLP}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/PPO-500-train-len.jpg}
+        \caption{Average episode length over iteration during training}
+        \label{fig:PPO-500-train-len}
+    \end{subfigure}
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/PPO-500-train-reward.jpg}
+        \caption{Average episode reward over iteration during training}
+        \label{fig:PPO-500-train-reward}
+    \end{subfigure}
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/PPO-500-eval-len.jpg}
+        \caption{Average evaluated episode length over iteration}
+        \label{fig:PPO-500-eval-len}
+    \end{subfigure}
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/PPO-500-eval-reward.jpg}
+        \caption{Average evaluated episode reward over iteration}
+        \label{fig:PPO-500-eval-reward}
+    \end{subfigure}
+    \caption{Performance Metrics of PPO(CNN) with 500 iterations}
+    \label{fig:PPO-500}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/Local_minima_len.png}
+        \caption{Average episode length over iteration during training}
+        \label{fig:Local_minima_episodelen}
+    \end{subfigure}
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/Local_minima_reward.png}
+        \caption{Average episode reward over iteration during training}
+        \label{fig:PPO-300-train-reward}
+    \end{subfigure}
+    \caption{DQN agent falls into local minima}
+    \label{fig:local_minima}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/rainbow_vs_extensions len.png}
+        \caption{Average episode length over iteration during training}
+        \label{fig:RDQN_vs_DQN_extention_episodelen}
+    \end{subfigure}
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/rainbow_vs_extensions reward.png}
+        \caption{Average episode reward over iteration during training}
+        \label{fig:RDQN_vs_DQN_extention-reward}
+    \end{subfigure}
+    \caption{Rainbow DQN vs DQN extensions}
+    \label{fig:RDQN_VS_DQN}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/DQN baseline Mem Eps Len.png}
+        \caption{Average episode length over iteration during training}
+        \label{fig:Base_DQN_vs_highMEM_DQN-episode}
+    \end{subfigure}
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/DQN baseline Mem Rew.png}
+        \caption{Average episode reward over iteration during training}
+        \label{fig::Base_DQN_vs_highMEM_DQN-reward}
+    \end{subfigure}
+    \caption{Base DQN vs High Memory Capacity DQN}
+    \label{fig:Base_DQN_vs_highMEM_DQN}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/DQN_extension Eps Len.png}
+        \caption{Average episode length over iteration during training}
+        \label{fig:DQN_extensions-episode}
+    \end{subfigure}
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/DQN_extension Rew.png}
+        \caption{Average episode reward over iteration during training}
+        \label{fig::DQN_extensions-reward}
+    \end{subfigure}
+    \caption{DQN Extensions comparison}
+    \label{fig:DQN_extensions}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/DQNvsRDQN Eps Len.png}
+        \caption{Average episode length over iteration during training}
+        \label{fig:RDQN-episode}
+    \end{subfigure}
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/DQNvsRDQN Rew.png}
+        \caption{Average episode reward over iteration during training}
+        \label{fig::RDQN-reward}
+    \end{subfigure}
+    \caption{RDQN vs DQN}
+    \label{fig:Rainbow DQN}
+\end{figure}
 
 \end{document}
