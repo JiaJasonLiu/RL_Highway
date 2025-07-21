@@ -1,4 +1,4 @@
-# CM30359: Reinforcement Learning CW
+# Reinforcement Learning Conquering the Highway Environment
 # Environment
 
 The [Highway Env](https://highway-env.farama.org/) is a Python-based simulation environment for studying and experimenting with decision-making in highway traffic scenarios. It is part of the Farama Foundation's ecosystem and is compatible with OpenAI Gym interfaces.
